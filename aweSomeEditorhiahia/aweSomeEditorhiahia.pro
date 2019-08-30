@@ -15,11 +15,13 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
     src/codeeditor.cpp \
-    src/myhighlighter.cpp
+    src/myhighlighter.cpp \
+    src/menu.cpp
 
 HEADERS  += mainwindow.h \
     src/codeeditor.h \
     src/myhighlighter.h \
-    src/typedef.h
-
+    src/typedef.h \
+    src/menu.h
+CONFIG +=c++11
 FORMS    += mainwindow.ui
