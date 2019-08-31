@@ -8,6 +8,8 @@
 #include<QStatusBar>
 #include<QMessageBox>
 #include<QDialog>
+#include<QFileDialog>
+#include<QFile>
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent)
 {
@@ -16,6 +18,8 @@ MainWindow::MainWindow(QWidget *parent) :
     configEditor->setMode(EDIT);
     gridLayout->addWidget(configEditor);
     MyHighLighter *highlighter = new MyHighLighter(configEditor->document());
+
+
 
      //添加菜单栏
     QMenuBar *mbar=menuBar();
@@ -35,24 +39,71 @@ MainWindow::MainWindow(QWidget *parent) :
 
 
     //文件菜单栏
-    //1.新建文件
+    //1.新建文件  //代码已完成，可测试
     QAction *pNew = pfile->addAction("新建");
     pNew ->setShortcut(tr("ctrl+n"));
     connect(pNew,&QAction::triggered,[=](){
-
+      QString path= QFileDialog::getSaveFileName(this,"save","../","souce(*cpp *h);;Text(*.txt)");
+      if(path.isEmpty()==false)
+      {
+          QFile file;//创建文件对象
+          file.setFileName(path);
+          bool isok=file.open(QIODevice::WriteOnly);
+          file.close();
+      }
     }
     );
        pfile->addSeparator();
 
 
-    //2.打开文件
+    //2.打开文件,即读已写文件，已完成，可测试
     QAction *popen =pfile->addAction("打开");
     popen ->setShortcut(tr("ctrl+o"));
     connect(popen,&QAction::triggered,[=](){
-
+    QString path= QFileDialog::getOpenFileName(
+                this,
+                "open",
+                "../",
+                "souce(*cpp *h);;Text(*.txt)"
+                );
+     if (path.isEmpty()==false)
+     {    QFile file (path);
+     bool isok =file.open(QIODevice::ReadOnly);
+     if(isok==true)
+     {
+         //读文件
+     QByteArray array= file.readAll();
+     configEditor->appendPlainText(array);
+     }
+     }
     }
     );
+    //3.保存为文件,代码已完成，可测试
+    QAction *psave = pfile->addAction("保存");
+    psave ->setShortcut(tr("ctrl+s"));
+    connect(psave,&QAction::triggered,[=](){
+      QString path= QFileDialog::getSaveFileName(this,"save","../","souce(*cpp *h);;Text(*.txt)");
+      if(path.isEmpty()==false)
+      {
+          QFile file;//创建文件对象
+          file.setFileName(path);
+          bool isok=file.open(QIODevice::WriteOnly);
+          if(isok==true)
+          {
+          QString str=configEditor->toPlainText();
+          file.write(str.toUtf8());
+          }
+          file.close();
+      }
+    }
+    );
+   //文件部分完结，下面建立搜索栏
 
+
+   //搜索部分完结，接下来完成编译运行
+
+
+   //编译运行部分完成，接下来完成设置
 
 
 
@@ -67,6 +118,8 @@ MainWindow::MainWindow(QWidget *parent) :
        label->setText("编译");
        sBar->addWidget(label);
        sBar->addWidget(new QLabel("2",this));
+
+
 
 
 

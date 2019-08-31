@@ -16,6 +16,7 @@ public:
 
 private:
      CodeEditor *configEditor;
+
 };
 
 #endif // MAINWINDOW_H
