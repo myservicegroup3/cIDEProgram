@@ -38,7 +38,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QAction *ab=pabout->addAction("开发人员");
     connect(ab,&QAction::triggered,[=]()
     {
-        QMessageBox::about(this,"about","开发人员：七只羊，赵英健，刘俊杰，刘常思冰，黄啸嵩");
+        QMessageBox::about(this,"about","开发人员：祁志洋，赵英健，刘俊杰，刘常思冰，黄啸嵩");
     });
 
 
