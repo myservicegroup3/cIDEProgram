@@ -97,6 +97,25 @@ MainWindow::MainWindow(QWidget *parent) :
       }
     }
     );
+
+    //3.另存为文件,代码已完成，可测试
+    QAction *psaveas = pfile->addAction("另存");
+    connect(psaveas,&QAction::triggered,[=](){
+      QString path= QFileDialog::getSaveFileName(this,"save","../","souce(*cpp *h);;Text(*.txt)");
+      if(path.isEmpty()==false)
+      {
+          QFile file;//创建文件对象
+          file.setFileName(path);
+          bool isok=file.open(QIODevice::WriteOnly);
+          if(isok==true)
+          {
+          QString str=configEditor->toPlainText();
+          file.write(str.toUtf8());
+          }
+          file.close();
+      }
+    }
+    );
    //文件部分完结，下面建立搜索栏
 
 
@@ -125,11 +144,21 @@ MainWindow::MainWindow(QWidget *parent) :
 
 
 
-
-
-
-
-
+}
+void MainWindow::on_save()
+{
+           if(filename.isEmpty())
+           {
+               filename = QFileDialog::getSaveFileName(this,"保存文件");
+           }
+           if(!filename.isEmpty())
+           {
+               FILE *p = fopen(filename.toStdString().data(),"w");
+               if(p == NULL) return ;
+               QString str = configEditor->toPlainText();
+               fputs(str.toStdString().data(),p);
+               fclose(p);
+           }
 }
 
 MainWindow::~MainWindow()

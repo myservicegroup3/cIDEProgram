@@ -15,7 +15,12 @@ public:
     ~MainWindow();
 
 private:
-     CodeEditor *configEditor;
+     QString  filename;
+
+    CodeEditor *configEditor;
+    void on_save();
+
+
 
 };
 
