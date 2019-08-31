@@ -6,6 +6,7 @@
 #include "src/codeeditor.h"
 #include "src/myhighlighter.h"
 #include "src/typedef.h"
+#include <QSettings>
 class MainWindow : public QMainWindow,Ui::MainWindow
 {
     Q_OBJECT
@@ -16,10 +17,14 @@ public:
 
 private:
      QString  filename;
+     QSettings settings;
 
     CodeEditor *configEditor;
     void on_save();
-
+private slots:
+    void New();
+    void open();
+    void save();
 
 
 };
