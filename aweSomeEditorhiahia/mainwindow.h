@@ -15,6 +15,19 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
+public:
+    //theme
+    QString theme;
+
+private slots:
+    //theme
+    //void setMainWindowStyle(QString backgroundColor, QString lineColor);
+    void setTabWidgetStyle(QString foregroundColor, QString backgroundColor);
+    void on_actionTommorrow_Night_triggered();
+
+
+
+
 private:
      QString  filename;
      QSettings settings;

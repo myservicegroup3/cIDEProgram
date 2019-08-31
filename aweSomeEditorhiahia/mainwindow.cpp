@@ -15,21 +15,26 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     this->setupUi(this);
     configEditor = new CodeEditor();
-    configEditor->setMode(EDIT);
+    configEditor->colorCount();
+
     gridLayout->addWidget(configEditor);
     MyHighLighter *highlighter = new MyHighLighter(configEditor->document());
 
-    //窗口大小设置
-        int windowWidth = settings.value("windowWidth", 1200).toInt();
-        int windowHeight = settings.value("windowHeight", 900).toInt();
-        MainWindow::resize(windowWidth, windowHeight);
+    //初始设置
+    int windowWidth = settings.value("windowWidth", 1200).toInt();
+    int windowHeight = settings.value("windowHeight", 900).toInt();
+    MainWindow::resize(windowWidth, windowHeight);
+    setTabWidgetStyle("#839496", "#fdf6e3");
 
 
      //添加菜单栏
     QMenuBar *mbar=menuBar();
+
+
     //添加菜单项
     QMenu *pfile=mbar->addMenu("文件");
     QMenu *pfind =mbar->addMenu("搜索");
+    QMenu *pview = mbar->addMenu("视图");
     QMenu *pexeute=mbar->addMenu("运行");
     QMenu *psetting=mbar->addMenu("设置");
     QMenu *pabout =mbar->addMenu("关于");
@@ -40,6 +45,23 @@ MainWindow::MainWindow(QWidget *parent) :
     {
         QMessageBox::about(this,"about","开发人员：祁志洋，赵英健，刘俊杰，刘常思冰，黄啸嵩");
     });
+
+    //设置
+    //1主题
+    QMenu *ptheme = psetting->addMenu(u8"主题");
+    QAction *ptheme1 = ptheme->addAction("1");
+    connect(ptheme1,SIGNAL(triggered()),this,SLOT(on_actionTommorrow_Night_triggered()));
+    QAction *ptheme2 = ptheme->addAction("2");
+    QAction *ptheme3 = ptheme->addAction("3");
+    QAction *ptheme4 = ptheme->addAction("4");
+    //2字体
+    QMenu *pword = psetting->addMenu(u8"字体");
+    QAction *pword1 = pword->addAction("1");
+    QAction *pword2 = pword->addAction("2");
+    QAction *pword3 = pword->addAction("3");
+    QAction *pword4 = pword->addAction("4");
+    //connect(ptheme1,SIGNAL(triggered()),this,SLOT(New()));
+
 
 
     //文件菜单栏
@@ -162,4 +184,38 @@ void MainWindow::save()
 }
 MainWindow::~MainWindow()
 {
+}
+//主题
+
+void MainWindow::setTabWidgetStyle(QString foregroundColor, QString backgroundColor){
+    QString stylesheet = "QPlainTextEdit {"
+                "background-color: " +  backgroundColor  +";"
+                "color:" + foregroundColor  +";"
+
+                "selection-background-color: #404f4f;"
+                "font-family: \"Anonymous Pro\";"
+                "font-size:21pt;"
+             "}"
+
+     ;
+    configEditor->setStyleSheet(stylesheet);
+}
+
+void MainWindow::on_actionTommorrow_Night_triggered()
+{
+    theme = "tomorrowNight";
+    settings.setValue("theme", "tomorrowNight");
+    QString fgc = "#c5c8c6";
+    QString bgc = "#1d1f21";
+    QString lc = "#282a2e";
+
+
+    setTabWidgetStyle(fgc, bgc);
+    //setLineNumStyle(lc, fgc);
+    //setOverViewStyle(lc, fgc);
+
+    //updateHighlighterTheme();
+
+   // lineColor = QColor(40, 42, 46);
+   // highlightCurrentLine();
 }

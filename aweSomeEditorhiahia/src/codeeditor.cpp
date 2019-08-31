@@ -10,7 +10,9 @@ CodeEditor::CodeEditor(QWidget *parent) : QPlainTextEdit(parent)
     connect(this, SIGNAL(cursorPositionChanged()), this, SLOT(highlightCurrentLine()));
 
     updateLineNumberAreaWidth(0);
-    setMode(BROWSE);
+
+    this->setStyleSheet("background:#ffffff;");
+    highlightCurrentLine();
 }
 int CodeEditor::lineNumberAreaWidth()
 {
@@ -21,7 +23,7 @@ int CodeEditor::lineNumberAreaWidth()
         ++digits;
     }
 
-    int space = 3 + fontMetrics().width(QLatin1Char('9')) * digits;
+    int space = 17 + fontMetrics().width(QLatin1Char('9')) * digits;
 
     return space;
 }
@@ -91,20 +93,5 @@ void CodeEditor::lineNumberAreaPaintEvent(QPaintEvent *event)
         top = bottom;
         bottom = top + (int) blockBoundingRect(block).height();
         ++blockNumber;
-    }
-}
-void CodeEditor::setMode(editorMode mode)
-{
-    if(mode == BROWSE)
-    {
-        this->setReadOnly(true);
-        this->setStyleSheet("background:#f2f2f3;");
-         highlightCurrentLine();
-    }
-    else if(mode == EDIT)
-    {
-        this->setReadOnly(false);
-        this->setStyleSheet("background:#ffffff;");
-         highlightCurrentLine();
     }
 }
