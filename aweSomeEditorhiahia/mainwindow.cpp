@@ -1,4 +1,4 @@
-#include "mainwindow.h"
+﻿#include "mainwindow.h"
 #include <QMenuBar>
 #include<QMenu>
 #include<QAction>
@@ -32,18 +32,18 @@ MainWindow::MainWindow(QWidget *parent) :
 
 
     //添加菜单项
-    QMenu *pfile=mbar->addMenu("文件");
-    QMenu *pfind =mbar->addMenu("搜索");
-    QMenu *pview = mbar->addMenu("视图");
-    QMenu *pexeute=mbar->addMenu("运行");
-    QMenu *psetting=mbar->addMenu("设置");
-    QMenu *pabout =mbar->addMenu("关于");
+    QMenu *pfile=mbar->addMenu(u8"文件");
+    QMenu *pfind =mbar->addMenu(u8"搜索");
+    QMenu *pview = mbar->addMenu(u8"视图");
+    QMenu *pexeute=mbar->addMenu(u8"运行");
+    QMenu *psetting=mbar->addMenu(u8"设置");
+    QMenu *pabout =mbar->addMenu(u8"关于");
 
     //关于
-    QAction *ab=pabout->addAction("开发人员");
+    QAction *ab=pabout->addAction(u8"开发人员");
     connect(ab,&QAction::triggered,[=]()
     {
-        QMessageBox::about(this,"about","开发人员：祁志洋，赵英健，刘俊杰，刘常思冰，黄啸嵩");
+        QMessageBox::about(this,"about",u8"开发人员：祁志洋，赵英健，刘俊杰，刘常思冰，黄啸嵩");
     });
 
     //设置
@@ -66,58 +66,33 @@ MainWindow::MainWindow(QWidget *parent) :
 
     //文件菜单栏
     //1.新建文件  //代码已完成，可测试
-    QAction *pNew = pfile->addAction("新建");
+    QAction *pNew = pfile->addAction(u8"新建");
     pNew ->setShortcut(tr("ctrl+n"));
     connect(pNew,SIGNAL(triggered()),this,SLOT(New()));
     pfile->addSeparator();
 
 
     //2.打开文件,即读已写文件，已完成，可测试
-    QAction *popen =pfile->addAction("打开");
+    QAction *popen =pfile->addAction(u8"打开");
     popen ->setShortcut(tr("ctrl+o"));
     connect(popen,SIGNAL(triggered()),this,SLOT(open()));
     pfile->addSeparator();
 
     //3.保存为文件,代码已完成，可测试
-    QAction *psave = pfile->addAction("保存");
+    QAction *psave = pfile->addAction(u8"保存");
     psave ->setShortcut(tr("ctrl+s"));
     connect(psave,SIGNAL(triggered()),this,SLOT(save()));
     pfile->addSeparator();
    //文件部分完结，下面建立搜索栏
 
 
-   //搜索部分完结，接下来完成编译运行
-  /* QAction *pcomp=pexeute->addAction("编译");
-   pcomp->setShortcut(tr("ctrl+"));
-   connect(pcomp,&QAction::triggered,[=](){
-       if(ifChange==true)
-       {
-           save();
-       }
-       //预编译
-       FILE *p=fopen(filename.toStdString().data(),"r");
-         if(p==NULL) return;
-         QString cmd=filename+".c";
-         FILE *p1=fopen(cmd.toStdString().data(),"w");
-         if(p1==NULL) return;
-         QString str;
-         while (!feof(p))
-         {
-            char s[1024]={'\0'};
-            fgets(s,sizeof(s),p);
-            str+=s;
-         }
-         fputs(str.toStdString().data(),p1);
-         fclose(p);
-         fclose(p1);
+   //编译完成 ljj lcsb 测试可用
+    QAction *comp = pexeute->addAction(u8"编译");
+    QAction *run = pexeute->addAction(u8"运行");
+    //connect(configEditor->toPlainText(),SIGNAL(textChanged()),this,SLOT(on_changed()));
+    connect(comp,SIGNAL(triggered()),this,SLOT(on_comp()));
+    connect(run,SIGNAL(triggered()),this,SLOT(on_run()));
 
-
-       //编译
-       const char *s=filename.toStdString().data();
-       cmd.sprintf("gcc -o %s.exe %s.c",s,s);
-       system(cmd.toStdString().data());
-   });
-*/
    //编译运行部分完成，接下来完成设置
 
 
@@ -130,7 +105,7 @@ MainWindow::MainWindow(QWidget *parent) :
    //状态栏，我准备在这里显示编译成功与否
        QStatusBar *sBar =statusBar();
        QLabel *label =new QLabel(this);
-       label->setText("编译");
+       label->setText(u8"编译");
        sBar->addWidget(label);
        sBar->addWidget(new QLabel("2",this));
 
@@ -138,25 +113,25 @@ MainWindow::MainWindow(QWidget *parent) :
 }
 void MainWindow::New()
 {
-      QString path= QFileDialog::getSaveFileName(this,"save","../","souce(*cpp *h);;Text(*.txt)");
-      if(path.isEmpty()==false)
+      filepath= QFileDialog::getSaveFileName(this,"save","../","souce(*cpp *h);;Text(*.txt)");
+      if(filepath.isEmpty()==false)
       {
           QFile file;//创建文件对象
-          file.setFileName(path);
+          file.setFileName(filepath);
           bool isok=file.open(QIODevice::WriteOnly);
           file.close();
       }
 }
 void MainWindow::open()
 {
-    QString path= QFileDialog::getOpenFileName(
+    filepath= QFileDialog::getOpenFileName(
                 this,
                 "open",
                 "../",
                 "souce(*cpp *h);;Text(*.txt)"
                 );
-     if (path.isEmpty()==false)
-     {    QFile file (path);
+     if (filepath.isEmpty()==false)
+     {    QFile file (filepath);
      bool isok =file.open(QIODevice::ReadOnly);
      if(isok==true)
      {
@@ -168,11 +143,11 @@ void MainWindow::open()
 }
 void MainWindow::save()
 {
-          QString path= QFileDialog::getSaveFileName(this,"save","../","souce(*cpp *h);;Text(*.txt)");
-          if(path.isEmpty()==false)
+          filepath= QFileDialog::getSaveFileName(this,"save","../","souce(*cpp *h);;Text(*.txt)");
+          if(filepath.isEmpty()==false)
           {
               QFile file;//创建文件对象
-              file.setFileName(path);
+              file.setFileName(filepath);
               bool isok=file.open(QIODevice::WriteOnly);
               if(isok==true)
               {
@@ -185,6 +160,68 @@ void MainWindow::save()
 MainWindow::~MainWindow()
 {
 }
+
+//编译
+void MainWindow::precomp()//预编译
+{
+    FILE *p = fopen(filepath.toStdString().data(),"r");
+    if(p == NULL) return;
+    QString cmd = filepath + ".cpp";
+    FILE *p1 = fopen(cmd.toStdString().data(),"w");
+    if(p1 == NULL) return;
+    QString str;
+    while(!feof(p))
+    {
+        char buf[1024] = {0};
+        fgets(buf,sizeof(buf),p);
+        str += buf;
+    }
+    str.replace("包含","#include");
+    str.replace("主函数","main");
+    str.replace("整数","int");
+    str.replace("开始","{");
+    str.replace("收工","}");
+    str.replace("。",";");
+    str.replace("返回","return");
+    str.replace("打印","printf");
+    str.replace("输入输出","<stdio.h>");
+    str.replace("无声的等待...","getchar()");
+
+    fputs(str.toStdString().data(),p1);
+    fclose(p);
+    fclose(p1);
+}
+
+void MainWindow::on_change()
+{
+    is_changed = true;
+}
+
+void MainWindow::on_comp()
+{
+    if(is_changed == true)
+    {
+
+    }
+    precomp();
+    QString cmd;
+    cmd = "gcc -o " + filepath + ".exe " + filepath + ".cpp";
+    system(cmd.toStdString().data());//编译
+
+    cmd = filepath.replace("/","\\") + ".cpp";
+    remove(cmd.toStdString().data());
+
+    cmd = filepath + ".exe";
+    system(cmd.toStdString().data());
+}
+
+void MainWindow::on_run()
+{
+    QString cmd;
+    cmd = filepath + ".exe";
+    system(cmd.toStdString().data());
+}
+
 //主题
 
 void MainWindow::setTabWidgetStyle(QString foregroundColor, QString backgroundColor){

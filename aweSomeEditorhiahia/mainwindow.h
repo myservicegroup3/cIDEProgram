@@ -1,4 +1,4 @@
-#ifndef MAINWINDOW_H
+﻿#ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
 #include <QMainWindow>
@@ -30,14 +30,22 @@ private slots:
 
 private:
      QString  filename;
+     QString  filepath;
      QSettings settings;
 
     CodeEditor *configEditor;
     void on_save();
+    //编译
+    void precomp();
+    bool is_changed;
 private slots:
     void New();
     void open();
     void save();
+    //编译
+    void on_comp();
+    void on_run();
+    void on_change();
 
 
 };
