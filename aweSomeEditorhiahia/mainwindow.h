@@ -5,7 +5,7 @@
 #include "ui_mainwindow.h"
 #include "src/codeeditor.h"
 #include "src/myhighlighter.h"
-#include "src/typedef.h"
+
 #include <QSettings>
 #include <QRegExp>
 class MainWindow : public QMainWindow,Ui::MainWindow
@@ -24,7 +24,12 @@ private slots:
     //theme
     //void setMainWindowStyle(QString backgroundColor, QString lineColor);
     void setTabWidgetStyle(QString foregroundColor, QString backgroundColor);
-    void on_actionTommorrow_Night_triggered();
+    void Tommorrow_Night_triggered();
+    void Tommorrow_Light_triggered();
+
+    void Solarized_Dark_triggered();
+    void monokai_triggered();
+    void solarized_triggered();
     void New();
     void open();
     void save();

@@ -7,7 +7,6 @@
 #include <QResizeEvent>
 #include <QSize>
 #include <QWidget>
-#include <src/typedef.h>
 #include <QSyntaxHighlighter>
 class LineNumberArea;
 
@@ -17,7 +16,7 @@ class CodeEditor : public QPlainTextEdit
 
 public:
     CodeEditor(QWidget *parent = 0);
-    void setMode(editorMode mode);
+
     void lineNumberAreaPaintEvent(QPaintEvent *event);
     int lineNumberAreaWidth();
 
