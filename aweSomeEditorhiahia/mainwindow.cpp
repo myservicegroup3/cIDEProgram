@@ -39,21 +39,22 @@ MainWindow::MainWindow(QWidget *parent) :
     QMenu *psetting=mbar->addMenu(u8"设置");
     QMenu *pabout =mbar->addMenu(u8"关于");
 
-    //关于
-    QAction *ab=pabout->addAction(u8"开发人员");
-    connect(ab,&QAction::triggered,[=]()
-    {
-        QMessageBox::about(this,"about",u8"开发人员：祁志洋，赵英健，刘俊杰，刘常思冰，黄啸嵩");
-    });
+
 
     //设置
     //1主题
     QMenu *ptheme = psetting->addMenu(u8"主题");
     QAction *ptheme1 = ptheme->addAction("1");
-    connect(ptheme1,SIGNAL(triggered()),this,SLOT(on_actionTommorrow_Night_triggered()));
+
+    connect(ptheme1,SIGNAL(triggered()),this,SLOT(Tommorrow_Night_triggered()));
     QAction *ptheme2 = ptheme->addAction("2");
+    connect(ptheme2,SIGNAL(triggered()),this,SLOT(Tommorrow_Light_triggered()));
     QAction *ptheme3 = ptheme->addAction("3");
+    connect(ptheme3,SIGNAL(triggered()),this,SLOT(Solarized_Dark_triggered()));
     QAction *ptheme4 = ptheme->addAction("4");
+    connect(ptheme4,SIGNAL(triggered()),this,SLOT(monokai_triggered()));
+    QAction *ptheme5 = ptheme->addAction("5");
+    connect(ptheme5,SIGNAL(triggered()),this,SLOT(solarized_triggered()));
     //2字体
     QMenu *pword = psetting->addMenu(u8"字体");
     QAction *pword1 = pword->addAction("1");
@@ -108,6 +109,13 @@ MainWindow::MainWindow(QWidget *parent) :
        label->setText(u8"编译");
        sBar->addWidget(label);
        sBar->addWidget(new QLabel("2",this));
+
+       //关于
+       QAction *ab=pabout->addAction(u8"开发人员");
+       connect(ab,&QAction::triggered,[=]()
+       {
+           QMessageBox::about(this,"about",u8"开发人员：祁志洋，赵英健，刘俊杰，刘常思冰，黄啸嵩");
+       });
 
 
 }
@@ -243,7 +251,7 @@ void MainWindow::setTabWidgetStyle(QString foregroundColor, QString backgroundCo
     configEditor->setStyleSheet(stylesheet);
 }
 
-void MainWindow::on_actionTommorrow_Night_triggered()
+void MainWindow::Tommorrow_Night_triggered()
 {
     theme = "tomorrowNight";
     settings.setValue("theme", "tomorrowNight");
@@ -260,4 +268,43 @@ void MainWindow::on_actionTommorrow_Night_triggered()
 
    // lineColor = QColor(40, 42, 46);
    // highlightCurrentLine();
+}
+void MainWindow:: Tommorrow_Light_triggered()
+{
+    theme = "tomorrowLight";
+    settings.setValue("theme","tommorowLight");
+    QString fgc = "#4d4d4c";
+    QString bgc = "#ffffff";
+    QString lc =  "#282a2e";
+    setTabWidgetStyle(fgc, bgc);
+
+}
+void MainWindow ::Solarized_Dark_triggered()
+{
+    theme = "solarizedDark";
+    settings.setValue("theme", "solarizedDark");
+    QString fgc = "#839496";
+    QString bgc = "#002b36";
+    QString lc = "#073642";
+    setTabWidgetStyle(fgc, bgc);
+}
+
+void MainWindow ::monokai_triggered()
+{
+    theme = "monokai";
+   settings.setValue("theme", "monokai");
+   QString fgc = "#e0e0e0";
+   QString bgc = "#272822";
+   QString lc = "#32332c";
+   setTabWidgetStyle(fgc, bgc);
+}
+void MainWindow::solarized_triggered()
+{
+        theme = "solarized";
+       settings.setValue("theme", "solarized");
+
+        QString fgc = "#839496";
+        QString bgc = "#fdf6e3";
+        QString lc = "#eee7d5";
+        setTabWidgetStyle(fgc, bgc);
 }
