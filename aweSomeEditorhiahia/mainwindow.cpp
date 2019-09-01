@@ -111,6 +111,11 @@ MainWindow::MainWindow(QWidget *parent) :
 
 
 }
+
+MainWindow::~MainWindow()
+{
+}
+
 void MainWindow::New()
 {
       filepath= QFileDialog::getSaveFileName(this,"save","../","souce(*cpp *h);;Text(*.txt)");
@@ -157,11 +162,9 @@ void MainWindow::save()
               file.close();
           }
 }
-MainWindow::~MainWindow()
-{
-}
 
 //编译
+#if 0
 void MainWindow::precomp()//预编译
 {
     FILE *p = fopen(filepath.toStdString().data(),"r");
@@ -191,6 +194,7 @@ void MainWindow::precomp()//预编译
     fclose(p);
     fclose(p1);
 }
+#endif
 
 void MainWindow::on_change()
 {
@@ -203,14 +207,15 @@ void MainWindow::on_comp()
     {
 
     }
-    precomp();
+    //precomp();
     QString cmd;
-    cmd = "gcc -o " + filepath + ".exe " + filepath + ".cpp";
+    cmd = "gcc -o " + filepath.replace(QRegExp("\\..*$"),"") + ".exe " + filepath + ".cpp";
     system(cmd.toStdString().data());//编译
 
+#if 0
     cmd = filepath.replace("/","\\") + ".cpp";
     remove(cmd.toStdString().data());
-
+#endif
     cmd = filepath + ".exe";
     system(cmd.toStdString().data());
 }

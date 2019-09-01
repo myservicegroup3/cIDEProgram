@@ -7,6 +7,7 @@
 #include "src/myhighlighter.h"
 #include "src/typedef.h"
 #include <QSettings>
+#include <QRegExp>
 class MainWindow : public QMainWindow,Ui::MainWindow
 {
     Q_OBJECT
@@ -24,6 +25,13 @@ private slots:
     //void setMainWindowStyle(QString backgroundColor, QString lineColor);
     void setTabWidgetStyle(QString foregroundColor, QString backgroundColor);
     void on_actionTommorrow_Night_triggered();
+    void New();
+    void open();
+    void save();
+    //编译
+    void on_comp();
+    void on_run();
+    void on_change();
 
 
 
@@ -38,16 +46,6 @@ private:
     //编译
     void precomp();
     bool is_changed;
-private slots:
-    void New();
-    void open();
-    void save();
-    //编译
-    void on_comp();
-    void on_run();
-    void on_change();
-
-
 };
 
 #endif // MAINWINDOW_H
