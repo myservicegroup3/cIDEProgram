@@ -24,9 +24,10 @@ private slots:
     //theme
     //void setMainWindowStyle(QString backgroundColor, QString lineColor);
     void setTabWidgetStyle(QString foregroundColor, QString backgroundColor);
+
+
     void Tommorrow_Night_triggered();
     void Tommorrow_Light_triggered();
-
     void Solarized_Dark_triggered();
     void monokai_triggered();
     void solarized_triggered();
@@ -37,8 +38,6 @@ private slots:
     void on_comp();
     void on_run();
     void on_change();
-
-
 
 
 private:

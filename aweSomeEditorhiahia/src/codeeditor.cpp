@@ -4,15 +4,17 @@
 CodeEditor::CodeEditor(QWidget *parent) : QPlainTextEdit(parent)
 {
     lineNumberArea = new LineNumberArea(this);
-
-    connect(this, SIGNAL(blockCountChanged(int)), this, SLOT(updateLineNumberAreaWidth(int)));
+    //块的数量的修改
+    connect(this, SIGNAL(blockCountChanged(int)), this, SLOT(setLineNumberAreaWidth(int)));
+    //内容更新请求,只要内容发生变化就调用（包括光标的闪烁）。
     connect(this, SIGNAL(updateRequest(QRect,int)), this, SLOT(updateLineNumberArea(QRect,int)));
-    connect(this, SIGNAL(cursorPositionChanged()), this, SLOT(highlightCurrentLine()));
+    //实时更新光标变化，实现行高亮
+    connect(this, SIGNAL(cursorPositionChanged()), this, SLOT(HighLightCursorLine()));
 
-    updateLineNumberAreaWidth(0);
+    setLineNumberAreaWidth(0);
 
     this->setStyleSheet("background:#ffffff;");
-    highlightCurrentLine();
+    HighLightCursorLine();
 }
 int CodeEditor::lineNumberAreaWidth()
 {
@@ -28,8 +30,9 @@ int CodeEditor::lineNumberAreaWidth()
     return space;
 }
 
-void CodeEditor::updateLineNumberAreaWidth(int /* newBlockCount */)
+void CodeEditor::setLineNumberAreaWidth(int /* newBlockCount */)
 {
+    //设置绘图工具的视口矩形视转换并且使视转换生效。
     setViewportMargins(lineNumberAreaWidth(), 0, 0, 0);
 }
 
@@ -41,7 +44,7 @@ void CodeEditor::updateLineNumberArea(const QRect &rect, int dy)
         lineNumberArea->update(0, rect.y(), lineNumberArea->width(), rect.height());
 
     if (rect.contains(viewport()->rect()))
-        updateLineNumberAreaWidth(0);
+        setLineNumberAreaWidth(0);
 }
 
 void CodeEditor::resizeEvent(QResizeEvent *e)
@@ -51,22 +54,20 @@ void CodeEditor::resizeEvent(QResizeEvent *e)
     QRect cr = contentsRect();
     lineNumberArea->setGeometry(QRect(cr.left(), cr.top(), lineNumberAreaWidth(), cr.height()));
 }
-void CodeEditor::highlightCurrentLine()
+void CodeEditor::HighLightCursorLine()
 {
     QList<QTextEdit::ExtraSelection> extraSelections;
+    QTextEdit::ExtraSelection selection;//定义一个光标类
+    QColor lineColor = QColor(Qt::gray).lighter(140);
 
-    if (!isReadOnly()) {
-        QTextEdit::ExtraSelection selection;
-
-        QColor lineColor = QColor(Qt::yellow).lighter(160);
-
-        selection.format.setBackground(lineColor);
-        selection.format.setProperty(QTextFormat::FullWidthSelection, true);
-        //selection.cursor = textCursor();
-        //selection.cursor.clearSelection();
-        extraSelections.append(selection);
-    }
-
+    //设置高亮颜色和宽度
+    selection.format.setBackground(lineColor);
+    selection.format.setProperty(QTextFormat::FullWidthSelection, true);
+    //构造空游标设，设置锚点，取消之前选择，防止高亮多行
+    selection.cursor = this->textCursor();
+    selection.cursor.clearSelection();
+    extraSelections.append(selection);
+    //高亮显示
     setExtraSelections(extraSelections);
 }
 

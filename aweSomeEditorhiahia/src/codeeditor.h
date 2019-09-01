@@ -2,7 +2,6 @@
 #define CODEEDITOR_H
 #include <QPlainTextEdit>
 #include <QObject>
-
 #include <QPaintEvent>
 #include <QResizeEvent>
 #include <QSize>
@@ -24,8 +23,8 @@ protected:
     void resizeEvent(QResizeEvent *event) Q_DECL_OVERRIDE;
 
 private slots:
-    void updateLineNumberAreaWidth(int newBlockCount);
-    void highlightCurrentLine();
+    void setLineNumberAreaWidth(int newBlockCount);
+    void HighLightCursorLine();
     void updateLineNumberArea(const QRect &, int);
 
 private:
