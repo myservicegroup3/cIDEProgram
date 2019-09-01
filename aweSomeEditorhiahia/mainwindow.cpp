@@ -164,66 +164,30 @@ void MainWindow::save()
 }
 
 //编译
-#if 0
-void MainWindow::precomp()//预编译
-{
-    FILE *p = fopen(filepath.toStdString().data(),"r");
-    if(p == NULL) return;
-    QString cmd = filepath + ".cpp";
-    FILE *p1 = fopen(cmd.toStdString().data(),"w");
-    if(p1 == NULL) return;
-    QString str;
-    while(!feof(p))
-    {
-        char buf[1024] = {0};
-        fgets(buf,sizeof(buf),p);
-        str += buf;
-    }
-    str.replace("包含","#include");
-    str.replace("主函数","main");
-    str.replace("整数","int");
-    str.replace("开始","{");
-    str.replace("收工","}");
-    str.replace("。",";");
-    str.replace("返回","return");
-    str.replace("打印","printf");
-    str.replace("输入输出","<stdio.h>");
-    str.replace("无声的等待...","getchar()");
-
-    fputs(str.toStdString().data(),p1);
-    fclose(p);
-    fclose(p1);
-}
-#endif
-
+//判断代码是否被修改
 void MainWindow::on_change()
 {
     is_changed = true;
 }
-
+//编译运行
 void MainWindow::on_comp()
 {
     if(is_changed == true)
     {
 
     }
-    //precomp();
     QString cmd;
     cmd = "gcc -o " + filepath.replace(QRegExp("\\..*$"),"") + ".exe " + filepath + ".cpp";
     system(cmd.toStdString().data());//编译
-
-#if 0
-    cmd = filepath.replace("/","\\") + ".cpp";
-    remove(cmd.toStdString().data());
-#endif
+    //运行
     cmd = filepath + ".exe";
     system(cmd.toStdString().data());
 }
-
+//运行
 void MainWindow::on_run()
 {
     QString cmd;
-    cmd = filepath + ".exe";
+    cmd = filepath.replace(QRegExp("\\..*$"),"") + ".exe";
     system(cmd.toStdString().data());
 }
 
