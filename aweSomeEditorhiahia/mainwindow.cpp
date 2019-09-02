@@ -241,6 +241,8 @@ void MainWindow:: Tommorrow_Light_triggered()
     QString bgc = "#ffffff";
     QString lc =  "#282a2e";
     setTabWidgetStyle(fgc, bgc);
+    //configEditor-
+    //CodeEditor->updatecolor(lc);
 
 }
 void MainWindow ::Solarized_Dark_triggered()

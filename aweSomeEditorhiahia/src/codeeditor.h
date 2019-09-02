@@ -18,6 +18,7 @@ public:
 
     void lineNumberAreaPaintEvent(QPaintEvent *event);
     int lineNumberAreaWidth();
+    void updatecolor(QString *c,QPaintEvent *event);
 
 protected:
     void resizeEvent(QResizeEvent *event) Q_DECL_OVERRIDE;
@@ -35,16 +36,19 @@ private:
 class LineNumberArea : public QWidget
 {
 public:
-    LineNumberArea(CodeEditor *editor) : QWidget(editor) {
+    LineNumberArea(CodeEditor *editor) : QWidget(editor)
+    {
         codeEditor = editor;
     }
 
-    QSize sizeHint() const Q_DECL_OVERRIDE {
+    QSize sizeHint() const Q_DECL_OVERRIDE
+    {
         return QSize(codeEditor->lineNumberAreaWidth(), 0);
     }
 
 protected:
-    void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE {
+    void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE
+    {
         codeEditor->lineNumberAreaPaintEvent(event);
     }
 

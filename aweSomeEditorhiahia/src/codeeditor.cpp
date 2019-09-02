@@ -4,35 +4,33 @@
 CodeEditor::CodeEditor(QWidget *parent) : QPlainTextEdit(parent)
 {
     lineNumberArea = new LineNumberArea(this);
-    //块的数量的修改
+    //块的数量的修改后，就修改序号区域宽度属性
     connect(this, SIGNAL(blockCountChanged(int)), this, SLOT(setLineNumberAreaWidth(int)));
     //内容更新请求,只要内容发生变化就调用（包括光标的闪烁）。
     connect(this, SIGNAL(updateRequest(QRect,int)), this, SLOT(updateLineNumberArea(QRect,int)));
     //实时更新光标变化，实现行高亮
     connect(this, SIGNAL(cursorPositionChanged()), this, SLOT(HighLightCursorLine()));
-
     setLineNumberAreaWidth(0);
-
     this->setStyleSheet("background:#ffffff;");
     HighLightCursorLine();
 }
 int CodeEditor::lineNumberAreaWidth()
 {
+    //计算左侧序号边距的区域宽度大小
     int digits = 1;
     int max = qMax(1, blockCount());
-    while (max >= 10) {
+    while (max >= 10)
+    {
         max /= 10;
         ++digits;
     }
-
-    int space = 17 + fontMetrics().width(QLatin1Char('9')) * digits;
-
+    int space = 15 + fontMetrics().width(QLatin1Char('9')) * digits;
     return space;
 }
 
 void CodeEditor::setLineNumberAreaWidth(int /* newBlockCount */)
 {
-    //设置绘图工具的视口矩形视转换并且使视转换生效。
+    //设置绘图工具窗口。
     setViewportMargins(lineNumberAreaWidth(), 0, 0, 0);
 }
 
@@ -58,7 +56,7 @@ void CodeEditor::HighLightCursorLine()
 {
     QList<QTextEdit::ExtraSelection> extraSelections;
     QTextEdit::ExtraSelection selection;//定义一个光标类
-    QColor lineColor = QColor(Qt::gray).lighter(140);
+    QColor lineColor = QColor(Qt::yellow).lighter(185);
 
     //设置高亮颜色和宽度
     selection.format.setBackground(lineColor);
@@ -70,11 +68,15 @@ void CodeEditor::HighLightCursorLine()
     //高亮显示
     setExtraSelections(extraSelections);
 }
-
+void CodeEditor::updatecolor(QString * c,QPaintEvent *event)
+{
+    QPainter painter(lineNumberArea);
+    painter.fillRect(event->rect(),*c);
+}
 void CodeEditor::lineNumberAreaPaintEvent(QPaintEvent *event)
 {
     QPainter painter(lineNumberArea);
-    painter.fillRect(event->rect(), Qt::lightGray);
+    painter.fillRect(event->rect(),QColor(Qt::green).lighter(180));
 
 
     QTextBlock block = firstVisibleBlock();
