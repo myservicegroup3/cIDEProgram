@@ -287,7 +287,7 @@ void MainWindow::on_run()
 //视图
 void MainWindow::hidebar()
 {
-    if (mbar->height() > 0){
+    if (mbar->height() > 0){//设置菜单栏高度以实现隐藏效果
         mbar->setMaximumHeight(0);
     } else {
         mbar->setMaximumHeight(100);
