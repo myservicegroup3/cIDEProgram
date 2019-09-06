@@ -3,8 +3,8 @@
 
 #include <QMainWindow>
 #include "ui_mainwindow.h"
-#include "src/codeeditor.h"
-#include "src/myhighlighter.h"
+#include "codeeditor.h"
+#include "myhighlighter.h"
 #include <QMenuBar>
 #include<QMenu>
 #include <QSettings>
