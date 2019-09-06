@@ -20,8 +20,8 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     this->setupUi(this);
     configEditor = new CodeEditor();
-
     configEditor->colorCount();
+    buttonPics();
 
     gridLayout->addWidget(configEditor);
     MyHighLighter *highlighter = new MyHighLighter(configEditor->document());
@@ -192,6 +192,70 @@ MainWindow::MainWindow(QWidget *parent) :
 
 MainWindow::~MainWindow()
 {
+}
+
+void MainWindow::buttonPics()
+{
+    QPushButton *b1=new QPushButton(this);
+    littlePic->addWidget(b1);
+    //gridLayout_2->addWidget(b1);
+    b1->setStyleSheet("QPushButton{background-color:rgba(255,178,0,100%);\
+                      color: white;   border-radius: 10px;  \
+border: 2px groove gray; border-style: outset;}" // 按键本色
+"QPushButton:hover{background-color:white; color: black;}"  // 鼠标停放时的色彩
+"QPushButton:pressed{background-color:rgb(85, 170, 255); border-style: inset; }");
+    b1->setFixedSize(50,50);
+    connect(b1,SIGNAL(clicked()),this,SLOT(New()));
+
+    QPushButton *b2=new QPushButton(this);
+    littlePic->addWidget(b2);
+    b2->setStyleSheet("QPushButton{background-color:rgba(255,178,0,100%);\
+                      color: white;   border-radius: 10px;  \
+border: 2px groove gray; border-style: outset;}" // 按键本色
+"QPushButton:hover{background-color:white; color: black;}"  // 鼠标停放时的色彩
+"QPushButton:pressed{background-color:rgb(85, 170, 255); border-style: inset; }");
+    b2->setFixedSize(50,50);
+    connect(b2,SIGNAL(clicked()),this,SLOT(open()));
+
+    QPushButton *b3=new QPushButton(this);
+    littlePic->addWidget(b3);
+    b3->setStyleSheet("QPushButton{background-color:rgba(255,178,0,100%);\
+                      color: white;   border-radius: 10px;  \
+border: 2px groove gray; border-style: outset;}" // 按键本色
+"QPushButton:hover{background-color:white; color: black;}"  // 鼠标停放时的色彩
+"QPushButton:pressed{background-color:rgb(85, 170, 255); border-style: inset; }");
+    b3->setFixedSize(50,50);
+    connect(b3,SIGNAL(clicked()),this,SLOT(save()));
+
+    QPushButton *b4=new QPushButton(this);
+    littlePic->addWidget(b4);
+    b4->setStyleSheet("QPushButton{background-color:rgba(255,178,0,100%);\
+                      color: white;   border-radius: 10px;  \
+border: 2px groove gray; border-style: outset;}" // 按键本色
+"QPushButton:hover{background-color:white; color: black;}"  // 鼠标停放时的色彩
+"QPushButton:pressed{background-color:rgb(85, 170, 255); border-style: inset; }");
+    b4->setFixedSize(50,50);
+    connect(b4,SIGNAL(clicked()),this,SLOT(hidebar()));
+
+    QPushButton *b5=new QPushButton(this);
+    littlePic->addWidget(b5);
+    b5->setStyleSheet("QPushButton{background-color:rgba(255,178,0,100%);\
+                      color: white;   border-radius: 10px;  \
+border: 2px groove gray; border-style: outset;}" // 按键本色
+"QPushButton:hover{background-color:white; color: black;}"  // 鼠标停放时的色彩
+"QPushButton:pressed{background-color:rgb(85, 170, 255); border-style: inset; }");
+    b5->setFixedSize(50,50);
+    connect(b5,SIGNAL(clicked()),this,SLOT(on_comp()));
+
+
+    QPushButton *b6=new QPushButton(this);
+    littlePic->addWidget(b6);
+    b6->setStyleSheet("background-color:#EEEEEE;  border:none");
+    b6->setFixedSize(1000,50);
+    b6->setDisabled(true);
+    //b6->setStyleSheet("boder:none");
+    //connect(b5,SIGNAL(clicked()),this,SLOT(on_comp()));
+
 }
 
 void MainWindow::New()

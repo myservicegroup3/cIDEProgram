@@ -91,6 +91,7 @@ private:
 
     CodeEditor *configEditor;
     void on_save();
+    void buttonPics();//工具栏
     //编译
     void precomp();
     bool is_changed;
