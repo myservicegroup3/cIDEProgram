@@ -14,11 +14,13 @@
 #include<QDialog>
 #include<QPushButton>
 #include<QPlainTextEdit>
+#include <setting.h>
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent)
 {
     this->setupUi(this);
     configEditor = new CodeEditor();
+
     configEditor->colorCount();
 
     gridLayout->addWidget(configEditor);
@@ -28,56 +30,46 @@ MainWindow::MainWindow(QWidget *parent) :
     int windowWidth = settings.value("windowWidth", 1200).toInt();
     int windowHeight = settings.value("windowHeight", 900).toInt();
     MainWindow::resize(windowWidth, windowHeight);
-    setTabWidgetStyle("#839496", "#fdf6e3");
-
-/*
-     //添加菜单栏
-    QMenuBar *mbar=menuBar();
+    setTabWidgetStyle();
 
 
-    //添加菜单项
-    QMenu *pfile=mbar->addMenu(u8"文件");
-    QMenu *pfind =mbar->addMenu(u8"搜索");
-    QMenu *pview = mbar->addMenu(u8"视图");
-    QMenu *pexeute=mbar->addMenu(u8"运行");
-    QMenu *psetting=mbar->addMenu(u8"设置");
-    QMenu *pabout =mbar->addMenu(u8"关于");
-
-*/
 
     //设置
     //1主题
     QMenu *ptheme = psetting->addMenu(u8"主题");
-    QAction *ptheme1 = ptheme->addAction("1");
+    QAction *ptheme1 = ptheme->addAction("TommorrowLight");
+    connect(ptheme1,SIGNAL(triggered()),this,SLOT(Tommorrow_Light_triggered()));
+    QAction *ptheme2 = ptheme->addAction("Solarized");
+    connect(ptheme2,SIGNAL(triggered()),this,SLOT(solarized_triggered()));
 
-    connect(ptheme1,SIGNAL(triggered()),this,SLOT(Tommorrow_Night_triggered()));
-    QAction *ptheme2 = ptheme->addAction("2");
-    connect(ptheme2,SIGNAL(triggered()),this,SLOT(Tommorrow_Light_triggered()));
-    QAction *ptheme3 = ptheme->addAction("3");
+
+    QAction *ptheme3 = ptheme->addAction("SolarizedDark");
     connect(ptheme3,SIGNAL(triggered()),this,SLOT(Solarized_Dark_triggered()));
-    QAction *ptheme4 = ptheme->addAction("4");
+    QAction *ptheme4 = ptheme->addAction("Monokai");
     connect(ptheme4,SIGNAL(triggered()),this,SLOT(monokai_triggered()));
-    QAction *ptheme5 = ptheme->addAction("5");
-    connect(ptheme5,SIGNAL(triggered()),this,SLOT(solarized_triggered()));
+    QAction *ptheme5 = ptheme->addAction("TommorrowNight");
+
+    connect(ptheme5,SIGNAL(triggered()),this,SLOT(Tommorrow_Night_triggered()));
+
     //2字体大小
     QMenu *pword = psetting->addMenu(u8"字体大小");
-    QAction *pword1 = pword->addAction("1");
+    QAction *pword1 = pword->addAction("12");
     connect(pword1,SIGNAL(triggered()),this,SLOT(setfontsize1()));
-    QAction *pword2 = pword->addAction("2");
+    QAction *pword2 = pword->addAction("16");
      connect(pword2,SIGNAL(triggered()),this,SLOT(setfontsize2()));
-    QAction *pword3 = pword->addAction("3");
+    QAction *pword3 = pword->addAction("20");
      connect(pword3,SIGNAL(triggered()),this,SLOT(setfontsize3()));
-    QAction *pword4 = pword->addAction("4");
+    QAction *pword4 = pword->addAction("24");
      connect(pword4,SIGNAL(triggered()),this,SLOT(setfontsize4()));
     //字体风格
     QMenu *pwordtheme = psetting->addMenu(u8"字体风格");
-    QAction *pwordtheme1 = pwordtheme->addAction("1");
+    QAction *pwordtheme1 = pwordtheme->addAction("Consolas");
     connect(pwordtheme1,SIGNAL(triggered()),this,SLOT(setfontheme1()));
-    QAction *pwordtheme2 = pwordtheme->addAction("2");
+    QAction *pwordtheme2 = pwordtheme->addAction("AnonymousPro");
     connect(pwordtheme2,SIGNAL(triggered()),this,SLOT(setfontheme2()));
-    QAction *pwordtheme3 = pwordtheme->addAction("3");
+    QAction *pwordtheme3 = pwordtheme->addAction("Calibri");
     connect(pwordtheme3,SIGNAL(triggered()),this,SLOT(setfontheme3()));
-    QAction *pwordtheme4 = pwordtheme->addAction("4");
+    QAction *pwordtheme4 = pwordtheme->addAction("Courier");
     connect(pwordtheme4,SIGNAL(triggered()),this,SLOT(setfontheme4()));
 
 
@@ -122,8 +114,6 @@ MainWindow::MainWindow(QWidget *parent) :
     layout->addWidget(findLineEdit);
     layout->addWidget(btn);
     layout->addWidget(btn1);
-
-
 
 
     connect(btn, SIGNAL(clicked()), this, SLOT(showFindText1()));
@@ -198,6 +188,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
 
 }
+
 
 MainWindow::~MainWindow()
 {
@@ -292,166 +283,6 @@ void MainWindow::hidebar()
     } else {
         mbar->setMaximumHeight(100);
     }
-}
-//主题和字体
-
-void MainWindow::setTabWidgetStyle(QString foregroundColor, QString backgroundColor){
-    QString stylesheet = "QPlainTextEdit {"
-                "background-color: " +  backgroundColor  +";"
-                "color:" + foregroundColor  +";"
-
-                "selection-background-color: #404f4f;"
-                "font-family: \"Consolas\";"
-                "font-size:21pt;"
-             "}"
-
-     ;
-    configEditor->setStyleSheet(stylesheet);
-}
-
-void MainWindow::setfontheme1()
-{
-    QString stylesheet = "QPlainTextEdit {"
-                "font-family: \"Consolas\";"
-
-             "}"
-
-     ;
-    configEditor->setStyleSheet(stylesheet);
-}
-void MainWindow::setfontheme2()
-{
-    QString stylesheet = "QPlainTextEdit {"
-                "font-family: \"Anonymous Pro\";"
-
-             "}"
-
-     ;
-    configEditor->setStyleSheet(stylesheet);
-
-}
-void MainWindow::setfontheme3()
-{
-    QString stylesheet = "QPlainTextEdit {"
-                "font-family: \"Calibri\";"
-
-             "}"
-
-     ;
-    configEditor->setStyleSheet(stylesheet);
-
-}
-void MainWindow::setfontheme4()
-{
-    QString stylesheet = "QPlainTextEdit {"
-                "font-family: \"Courier\";"
-
-             "}"
-
-     ;
-    configEditor->setStyleSheet(stylesheet);
-
-}
-void MainWindow::setfontsize1()
-{
-    QString stylesheet = "QPlainTextEdit {"
-                "font-size:12pt;"
-             "}"
-
-     ;
-    configEditor->setStyleSheet(stylesheet);
-
-}
-void MainWindow::setfontsize2()
-{
-    QString stylesheet = "QPlainTextEdit {"
-                "font-size:16pt;"
-             "}"
-
-     ;
-    configEditor->setStyleSheet(stylesheet);
-
-}
-void MainWindow::setfontsize3()
-{
-    QString stylesheet = "QPlainTextEdit {"
-                "font-size:20pt;"
-             "}"
-
-     ;
-    configEditor->setStyleSheet(stylesheet);
-
-}
-void MainWindow::setfontsize4()
-{
-    QString stylesheet = "QPlainTextEdit {"
-                "font-size:24pt;"
-             "}"
-
-     ;
-    configEditor->setStyleSheet(stylesheet);
-
-}
-void MainWindow::Tommorrow_Night_triggered()
-{
-    theme = "tomorrowNight";
-    settings.setValue("theme", "tomorrowNight");
-    QString fgc = "#c5c8c6";
-    QString bgc = "#1d1f21";
-    QString lc = "#282a2e";
-
-    setTabWidgetStyle(fgc, bgc);
-    //setLineNumStyle(lc, fgc);
-    //setOverViewStyle(lc, fgc);
-
-    //updateHighlighterTheme();
-
-   // lineColor = QColor(40, 42, 46);
-   // highlightCurrentLine();
-}
-void MainWindow:: Tommorrow_Light_triggered()
-{
-    theme = "tomorrowLight";
-    settings.setValue("theme","tommorowLight");
-    QString fgc = "#4d4d4c";
-    QString bgc = "#ffffff";
-    QString lc =  "#282a2e";
-    setTabWidgetStyle(fgc, bgc);
-    //configEditor-
-    //CodeEditor->updatecolor(lc);
-
-}
-void MainWindow ::Solarized_Dark_triggered()
-{
-    theme = "solarizedDark";
-    settings.setValue("theme", "solarizedDark");
-    QString fgc = "#839496";
-    QString bgc = "#002b36";
-    QString lc = "#073642";
-    setTabWidgetStyle(fgc, bgc);
-
-
-
-}
-
-void MainWindow ::monokai_triggered()
-{
-    theme = "monokai";
-   settings.setValue("theme", "monokai");
-   QString fgc = "#e0e0e0";
-   QString bgc = "#272822";
-   //QString lc = "#32332c";
-   setTabWidgetStyle(fgc, bgc);
-}
-void MainWindow::solarized_triggered()
-{
-   theme = "solarized";
-   settings.setValue("theme", "solarized");
-   QString fgc = "#839496";
-   QString bgc = "#fdf6e3";
-   //QString lc = "#eee7d5";
-   setTabWidgetStyle(fgc, bgc);
-
 }
 
 

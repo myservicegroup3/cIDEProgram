@@ -36,7 +36,8 @@ private slots:
 
     //theme
     //void setMainWindowStyle(QString backgroundColor, QString lineColor);
-    void setTabWidgetStyle(QString foregroundColor, QString backgroundColor);
+    void setTabWidgetStyle();
+    //QString foregroundColor, QString backgroundColor
 
 
     //搜索

@@ -19,6 +19,8 @@ SOURCES += main.cpp\
 
 HEADERS  += mainwindow.h \
     src/codeeditor.h \
-    src/myhighlighter.h
+    src/myhighlighter.h \
+    setting.h \
+    include.h
 CONFIG +=c++11
 FORMS    += mainwindow.ui

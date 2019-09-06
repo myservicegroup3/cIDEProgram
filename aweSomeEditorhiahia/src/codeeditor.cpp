@@ -11,7 +11,7 @@ CodeEditor::CodeEditor(QWidget *parent) : QPlainTextEdit(parent)
     //实时更新光标变化，实现行高亮
     connect(this, SIGNAL(cursorPositionChanged()), this, SLOT(HighLightCursorLine()));
     setLineNumberAreaWidth(0);
-    this->setStyleSheet("background:#ffffff;");
+    //this->setStyleSheet();
     HighLightCursorLine();
 }
 int CodeEditor::lineNumberAreaWidth()
@@ -56,7 +56,7 @@ void CodeEditor::HighLightCursorLine()
 {
     QList<QTextEdit::ExtraSelection> extraSelections;
     QTextEdit::ExtraSelection selection;//定义一个光标类
-    QColor lineColor = QColor(Qt::yellow).lighter(185);
+    QColor lineColor = QColor(Qt::green).lighter(185);
 
     //设置高亮颜色和宽度
     selection.format.setBackground(lineColor);
@@ -77,7 +77,6 @@ void CodeEditor::lineNumberAreaPaintEvent(QPaintEvent *event)
 {
     QPainter painter(lineNumberArea);
     painter.fillRect(event->rect(),QColor(Qt::green).lighter(180));
-
 
     QTextBlock block = firstVisibleBlock();
     int blockNumber = block.blockNumber();
