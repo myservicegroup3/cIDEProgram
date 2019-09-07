@@ -24,3 +24,6 @@ HEADERS  += mainwindow.h \
     codeeditor.h
 CONFIG +=c++11
 FORMS    += mainwindow.ui
+
+RESOURCES += \
+    img.qrc

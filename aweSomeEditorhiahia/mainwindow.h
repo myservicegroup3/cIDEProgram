@@ -2,12 +2,13 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include "ui_mainwindow.h"
 #include "codeeditor.h"
 #include "myhighlighter.h"
+#include "ui_mainwindow.h"
 #include <QMenuBar>
 #include<QMenu>
 #include <QSettings>
+#include <QPushButton>
 #include <QRegExp>
 class MainWindow : public QMainWindow,Ui::MainWindow
 {
@@ -31,7 +32,13 @@ public:
    QMenu *pexeute=mbar->addMenu(u8"运行");
    QMenu *psetting=mbar->addMenu(u8"设置");
    QMenu *pabout =mbar->addMenu(u8"关于");
+   QMenu *ptest = mbar->addMenu(u8"测试");
 
+
+private:
+   //模块化设置
+    void buttonPics();//工具栏
+    void setsearch();//搜索
 private slots:
 
     //theme
@@ -48,14 +55,11 @@ private slots:
     void showFindText3();
 
     void hidebar();
+    void test();
     //
 
 
-    void Tommorrow_Night_triggered();
-    void Tommorrow_Light_triggered();
-    void Solarized_Dark_triggered();
-    void monokai_triggered();
-    void solarized_triggered();
+
     void New();
     void open();
     void save();
@@ -63,6 +67,15 @@ private slots:
     void on_comp();
     void on_run();
     void on_change();
+
+    //设置
+    //主题
+    void setting_init();
+    void Tommorrow_Night_triggered();
+    void Tommorrow_Light_triggered();
+    void Solarized_Dark_triggered();
+    void monokai_triggered();
+    void solarized_triggered();
     //字体大小修改
     void setfontsize1();
     void setfontsize2();
@@ -73,25 +86,32 @@ private slots:
     void setfontheme2();
     void setfontheme3();
     void setfontheme4();
+    //设置结束
+
+    //tab测试
+    void removetab(int index);
+
+    void addPageSlot();
+    //void removePageSlot();
+    //void dragPageSlot();
 
 
 
 
 private:
-     QString  filename;
-     QString  filepath;
-     QSettings settings;
+    int count = 0;
+    QString  filename;
+    QString  filepath;
+    QSettings settings;
     QLineEdit *findLineEdit;
     QLineEdit *findLineEdit_1;
     QLineEdit *findLineEdit_2;
     QDialog *findDlg;
     QDialog *findDlg1;
- 
-    
+    tabCodeEditor *configEditor;
+//
 
-    CodeEditor *configEditor;
     void on_save();
-    void buttonPics();//工具栏
     //编译
     void precomp();
     bool is_changed;

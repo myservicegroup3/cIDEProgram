@@ -1,7 +1,7 @@
 #include "codeeditor.h"
 #include <QtWidgets>
 
-CodeEditor::CodeEditor(QWidget *parent) : QPlainTextEdit(parent)
+CodeEditor::CodeEditor(QTabWidget *parent) : QPlainTextEdit(parent)
 {
     lineNumberArea = new LineNumberArea(this);
     //块的数量的修改后，就修改序号区域宽度属性

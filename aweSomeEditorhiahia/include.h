@@ -1,6 +1,8 @@
 #ifndef HEADERS_H
 #define HEADERS_H
 #include "mainwindow.h"
+#include "codeeditor.h"
+#include "myhighlighter.h"
 #include <QMenuBar>
 #include<QMenu>
 #include<QAction>
@@ -18,8 +20,6 @@
 #include<QPlainTextEdit>
 #include <QMainWindow>
 #include "ui_mainwindow.h"
-#include "codeeditor.h"
-#include "myhighlighter.h"
 #include <QMenuBar>
 #include<QMenu>
 #include <QSettings>

@@ -5,16 +5,18 @@
 #include <QPaintEvent>
 #include <QResizeEvent>
 #include <QSize>
-#include <QWidget>
 #include <QSyntaxHighlighter>
+#include <QTabWidget>
+#include <QTabBar>
 class LineNumberArea;
+
 
 class CodeEditor : public QPlainTextEdit
 {
     Q_OBJECT
 
 public:
-    CodeEditor(QWidget *parent = 0);
+    CodeEditor(QTabWidget *parent = 0);
 
     void lineNumberAreaPaintEvent(QPaintEvent *event);
     int lineNumberAreaWidth();
@@ -29,13 +31,13 @@ private slots:
     void updateLineNumberArea(const QRect &, int);
 
 private:
-    QWidget *lineNumberArea;
+    QTabWidget *lineNumberArea;
 };
 
-class LineNumberArea : public QWidget
+class LineNumberArea : public QTabWidget
 {
 public:
-    LineNumberArea(CodeEditor *editor) : QWidget(editor)
+    LineNumberArea(CodeEditor *editor) : QTabWidget(editor)
     {
         codeEditor = editor;
     }
@@ -53,5 +55,22 @@ protected:
 
 private:
     CodeEditor *codeEditor;
+};
+
+
+class tabCodeEditor:public QTabWidget
+{
+public:
+    tabCodeEditor(){
+
+         blankEditor=new CodeEditor();
+         blankEditor->colorCount();
+         this->addTab(blankEditor,"test");
+
+
+    }
+    CodeEditor *blankEditor;
+
+
 };
 #endif // CODEEDITOR_H

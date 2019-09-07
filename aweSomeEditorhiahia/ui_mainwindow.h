@@ -26,7 +26,6 @@ public:
     QWidget *centralWidget;
     QGridLayout *gridLayout_2;
     QGridLayout *gridLayout;
-    QHBoxLayout *littlePic;
 
     void setupUi(QMainWindow *MainWindow)
     {
@@ -39,14 +38,11 @@ public:
         gridLayout_2->setSpacing(6);
         gridLayout_2->setContentsMargins(11, 11, 11, 11);
         gridLayout_2->setObjectName(QStringLiteral("gridLayout_2"));
-        littlePic=new QHBoxLayout();
-        littlePic->setSpacing(4);
-        gridLayout_2->addLayout(littlePic,0,0,1,1);
         gridLayout = new QGridLayout();
         gridLayout->setSpacing(6);
         gridLayout->setObjectName(QStringLiteral("gridLayout"));
 
-        gridLayout_2->addLayout(gridLayout, 1, 0, 1, 1);
+        gridLayout_2->addLayout(gridLayout, 0, 0, 1, 1);
 
         MainWindow->setCentralWidget(centralWidget);
 
