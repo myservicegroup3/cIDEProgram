@@ -21,7 +21,9 @@ HEADERS  += mainwindow.h \
     setting.h \
     include.h \
     myhighlighter.h \
-    codeeditor.h
+    codeeditor.h \
+    toolbar.h \
+    search.h
 CONFIG +=c++11
 FORMS    += mainwindow.ui
 
