@@ -2,6 +2,7 @@
 #include "setting.h"
 #include "toolbar.h"
 #include "search.h"
+#include "redefine.h"
 
 #include <QMenuBar>
 #include<QMenu>
@@ -210,9 +211,13 @@ void MainWindow::on_comp()
     }
     QString cmd;
     cmd = "gcc -o " + filepath.replace(QRegExp("\\..*$"),"") + ".exe " + filepath + ".cpp";
-    system(cmd.toStdString().data());//编译
-    //运行
+    redefine *re = new redefine(cmd);
+    re->move(50,450);
+    re->setParent(this);
     cmd = filepath + ".exe";
+    re->show();
+    re->write_cmd(cmd);
+    //运行
     system(cmd.toStdString().data());
 }
 //运行

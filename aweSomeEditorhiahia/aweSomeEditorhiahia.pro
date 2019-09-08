@@ -15,7 +15,8 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
     codeeditor.cpp \
-    myhighlighter.cpp
+    myhighlighter.cpp \
+    redefine.cpp
 
 HEADERS  += mainwindow.h \
     setting.h \
@@ -23,9 +24,11 @@ HEADERS  += mainwindow.h \
     myhighlighter.h \
     codeeditor.h \
     toolbar.h \
-    search.h
+    search.h \
+    redefine.h
 CONFIG +=c++11
-FORMS    += mainwindow.ui
+FORMS    += mainwindow.ui \
+    redefine.ui
 
 RESOURCES += \
     img.qrc
