@@ -7,5 +7,6 @@
         <file>img/run.png</file>
         <file>img/save.png</file>
         <file>img/tree.jpg</file>
+        <file>img/close.png</file>
     </qresource>
 </RCC>

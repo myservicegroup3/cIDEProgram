@@ -27,10 +27,10 @@
        </size>
       </property>
       <property name="styleSheet">
-       <string notr="true"/>
+       <string notr="true">#closeBtn{border-image:url(:/img/img/close.png);}</string>
       </property>
       <property name="text">
-       <string>关闭</string>
+       <string/>
       </property>
      </widget>
     </item>

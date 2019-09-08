@@ -49,7 +49,7 @@ public:
         closeBtn = new QToolButton(centralWidget);
         closeBtn->setObjectName(QStringLiteral("closeBtn"));
         closeBtn->setMaximumSize(QSize(30, 30));
-        closeBtn->setStyleSheet(QStringLiteral(""));
+        closeBtn->setStyleSheet(QStringLiteral("#closeBtn{border-image:url(:/img/img/close.png);}"));
 
         gridLayout->addWidget(closeBtn, 0, 1, 1, 1);
 
@@ -77,7 +77,7 @@ public:
     void retranslateUi(QMainWindow *redefine)
     {
         redefine->setWindowTitle(QApplication::translate("redefine", "redefine", nullptr));
-        closeBtn->setText(QApplication::translate("redefine", "\345\205\263\351\227\255", nullptr));
+        closeBtn->setText(QString());
     } // retranslateUi
 
 };

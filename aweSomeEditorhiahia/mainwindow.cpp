@@ -3,7 +3,7 @@
 #include "toolbar.h"
 #include "search.h"
 #include "redefine.h"
-
+#include "edit.h"
 #include <QMenuBar>
 #include<QMenu>
 #include<QAction>
@@ -48,9 +48,7 @@ MainWindow::MainWindow(QWidget *parent) :
      /**********************************************************/
 
      /***************************视图**************************/
-        QAction *phide = pview->addAction(u8"隐藏菜单栏");
-        phide ->setShortcut(tr("ctrl+h"));
-        connect(phide,SIGNAL(triggered()),this,SLOT(hidebar()));
+        edit_init();
     /**********************************************************/
 
 
@@ -225,14 +223,7 @@ void MainWindow::on_run()
     system(cmd.toStdString().data());
 }
 //视图
-void MainWindow::hidebar()
-{
-    if (mbar->height() > 0){//设置菜单栏高度以实现隐藏效果
-        mbar->setMaximumHeight(0);
-    } else {
-        mbar->setMaximumHeight(100);
-    }
-}
+
 
 void MainWindow::hidestatus()
 {

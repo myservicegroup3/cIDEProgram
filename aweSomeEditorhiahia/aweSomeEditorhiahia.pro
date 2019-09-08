@@ -25,7 +25,8 @@ HEADERS  += mainwindow.h \
     codeeditor.h \
     toolbar.h \
     search.h \
-    redefine.h
+    redefine.h \
+    edit.h
 CONFIG +=c++11
 FORMS    += mainwindow.ui \
     redefine.ui
