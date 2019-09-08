@@ -6,36 +6,48 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>819</width>
-    <height>287</height>
+    <width>1180</width>
+    <height>252</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>redefine</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: rgb(230, 230, 230);</string>
+  </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QGridLayout" name="gridLayout">
-    <item row="0" column="2">
-     <widget class="QPushButton" name="pushButton_Clear">
-      <property name="text">
-       <string>清空显示栏</string>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="4">
+    <item row="0" column="1">
      <widget class="QToolButton" name="closeBtn">
       <property name="maximumSize">
        <size>
-        <width>50</width>
-        <height>50</height>
+        <width>30</width>
+        <height>30</height>
        </size>
       </property>
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
       <property name="text">
-       <string>...</string>
+       <string>关闭</string>
       </property>
      </widget>
     </item>
-    <item row="1" column="0" colspan="4">
+    <item row="0" column="0">
+     <spacer name="horizontalSpacer">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>40</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item row="2" column="0" colspan="2">
      <widget class="QTextEdit" name="textEdit">
       <property name="maximumSize">
        <size>
@@ -43,19 +55,12 @@
         <height>160</height>
        </size>
       </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(255, 255, 255);</string>
+      </property>
      </widget>
     </item>
    </layout>
-  </widget>
-  <widget class="QMenuBar" name="menuBar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>819</width>
-     <height>23</height>
-    </rect>
-   </property>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
  </widget>
@@ -63,4 +68,3 @@
  <resources/>
  <connections/>
 </ui>
-

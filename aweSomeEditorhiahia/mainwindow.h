@@ -56,6 +56,7 @@ private slots:
     void showFindText3();
 
     void hidebar();
+    void hidestatus();
     void test();
     //
 

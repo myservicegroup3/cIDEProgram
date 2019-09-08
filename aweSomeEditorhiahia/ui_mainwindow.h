@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'mainwindow.ui'
 **
-** Created by: Qt User Interface Compiler version 5.8.0
+** Created by: Qt User Interface Compiler version 5.10.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -16,6 +16,7 @@
 #include <QtWidgets/QGridLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QMainWindow>
+#include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -25,7 +26,7 @@ class Ui_MainWindow
 public:
     QWidget *centralWidget;
     QGridLayout *gridLayout_2;
-    QGridLayout *gridLayout;
+    QVBoxLayout *vLayout;
 
     void setupUi(QMainWindow *MainWindow)
     {
@@ -38,11 +39,11 @@ public:
         gridLayout_2->setSpacing(6);
         gridLayout_2->setContentsMargins(11, 11, 11, 11);
         gridLayout_2->setObjectName(QStringLiteral("gridLayout_2"));
-        gridLayout = new QGridLayout();
-        gridLayout->setSpacing(6);
-        gridLayout->setObjectName(QStringLiteral("gridLayout"));
+        vLayout = new QVBoxLayout();
+        vLayout->setSpacing(6);
+        vLayout->setObjectName(QStringLiteral("vLayout"));
 
-        gridLayout_2->addLayout(gridLayout, 0, 0, 1, 1);
+        gridLayout_2->addLayout(vLayout, 0, 0, 1, 1);
 
         MainWindow->setCentralWidget(centralWidget);
 
@@ -53,7 +54,7 @@ public:
 
     void retranslateUi(QMainWindow *MainWindow)
     {
-        MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", Q_NULLPTR));
+        MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", nullptr));
     } // retranslateUi
 
 };

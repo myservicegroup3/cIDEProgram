@@ -30,19 +30,15 @@ private:
     QPoint clickPos;
 
 
+
 public slots:
     void read_data();
     void finished_process();
     void error_process();
 private slots:
     void on_closeBtn_clicked(bool checked);
-    void on_miniBtn_clicked(bool checked);
 
 
-protected:
-    bool nativeEvent(const QByteArray &eventType, void *message, long *result);
-    void mousePressEvent(QMouseEvent *e);
-    void mouseMoveEvent(QMouseEvent *e);
 
 };
 

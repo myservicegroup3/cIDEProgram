@@ -4,16 +4,13 @@
 
 #include <qDebug>
 #include <QShortcut>
-QString *str1, *str2;
+
 redefine::redefine(QString cmd_str, QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::redefine)
 {
     //setWindowTitle("cmd text");
-    setWindowFlags(Qt::CustomizeWindowHint|Qt::FramelessWindowHint);
-    hide();
-    boundaryWidth=4;
-    this->setMinimumSize(1140,100);
+
 
     ui->setupUi(this);
     ui->textEdit->setLineWrapMode(QTextEdit::NoWrap);
@@ -26,9 +23,6 @@ redefine::redefine(QString cmd_str, QWidget *parent) :
 
     write_cmd(cmd_str);
 
-
-    /* 按键相关 */
-    connect(ui->pushButton_Clear,SIGNAL(clicked()),ui->textEdit,SLOT(clear()));                           //清除命令行
 
     /* 命令行相关 */
     connect(process,SIGNAL(readyRead()),this,SLOT(read_data()));                                    //读命令行数据
@@ -114,53 +108,6 @@ void redefine::on_closeBtn_clicked(bool checked)
     this->close();
 }
 
-void redefine::on_miniBtn_clicked(bool checked)
-{
-    this->showMinimized();
-}
 
 
-
-bool redefine::nativeEvent(const QByteArray &eventType, void *message, long *result)
-{
-    MSG* msg = (MSG*)message;
-    switch(msg->message)
-        {
-        case WM_NCHITTEST:
-            int xPos = GET_X_LPARAM(msg->lParam) - this->frameGeometry().x();
-            int yPos = GET_Y_LPARAM(msg->lParam) - this->frameGeometry().y();
-            if(xPos < boundaryWidth && yPos<boundaryWidth)                    //左上角
-                *result = HTTOPLEFT;
-            else if(xPos>=width()-boundaryWidth&&yPos<boundaryWidth)          //右上角
-                *result = HTTOPRIGHT;
-            else if(xPos<boundaryWidth&&yPos>=height()-boundaryWidth)         //左下角
-                *result = HTBOTTOMLEFT;
-            else if(xPos>=width()-boundaryWidth&&yPos>=height()-boundaryWidth)//右下角
-                *result = HTBOTTOMRIGHT;
-            else if(xPos < boundaryWidth)                                     //左边
-                *result =  HTLEFT;
-            else if(xPos>=width()-boundaryWidth)                              //右边
-                *result = HTRIGHT;
-            else if(yPos<boundaryWidth)                                       //上边
-                *result = HTTOP;
-            else if(yPos>=height()-boundaryWidth)                             //下边
-                *result = HTBOTTOM;
-            else              //其他部分不做处理，返回false，留给其他事件处理器处理
-               return false;
-            return true;
-        }
-        return false;         //此处返回false，留给其他事件处理器处理
-}
-
-
-void redefine::mousePressEvent(QMouseEvent *e)
-{
-    if(e->button()==Qt::LeftButton)
-        clickPos=e->pos();
-}
-void redefine::mouseMoveEvent(QMouseEvent *e)
-{
-    if(e->buttons()&Qt::LeftButton)
-        move(e->pos()+pos()-clickPos);
-}
 

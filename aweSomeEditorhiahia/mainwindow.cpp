@@ -33,7 +33,7 @@ MainWindow::MainWindow(QWidget *parent) :
     this->configEditor = new tabCodeEditor();
     configEditor->setTabsClosable(true);
     connect(configEditor,SIGNAL(tabCloseRequested(int)),this,SLOT(removetab(int)));
-    gridLayout->addWidget(configEditor);
+    vLayout->addWidget(configEditor);
     /*******************************************************************/
 
     /****************************新建Tabwidget**************************/
@@ -102,12 +102,6 @@ MainWindow::MainWindow(QWidget *parent) :
 
     /***********************栏*************************************/
 
-   //状态栏，我准备在这里显示编译成功与否
-       QStatusBar *sBar =statusBar();
-       QLabel *label =new QLabel(this);
-       label->setText(u8"编译");
-       sBar->addWidget(label);
-       sBar->addWidget(new QLabel("2",this));
 
        //关于
        QAction *ab=pabout->addAction(u8"开发人员");
@@ -193,6 +187,7 @@ void MainWindow::on_change()
     is_changed = true;
 }
 //编译运行
+
 void MainWindow::on_comp()
 {
     if (is_changed == true)//在点击编译按钮，如果文本内容发生变化，就自动保存
@@ -200,13 +195,17 @@ void MainWindow::on_comp()
         save();
         is_changed = false;
     }
+
     precomp();//自动以预编译
     QString cmd;
     const char *s = filename.toStdString().data();
     cmd.sprintf("gcc -o %s.exe %s.c",s,s);
     redefine *re = new redefine(cmd);
-    re->move(50,450);
-    re->setParent(this);
+    //re->move(50,450);
+    //re->setParent(this);
+    vLayout->addWidget(re);
+    vLayout->setStretchFactor(configEditor,2);
+    vLayout->setStretchFactor(re,1);
     re->show();
     system(cmd.toStdString().data());//先编译
 
@@ -234,6 +233,13 @@ void MainWindow::hidebar()
         mbar->setMaximumHeight(100);
     }
 }
+
+void MainWindow::hidestatus()
+{
+
+}
+
+
 void MainWindow::test()
 {
 
