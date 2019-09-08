@@ -215,27 +215,8 @@ void MainWindow::on_comp()
     remove(cmd.toStdString().data());
 
 
-<<<<<<< HEAD
     cmd = filename + ".exe";
     system(cmd.toStdString().data());//再运行
-=======
-
-
-
-
-
-    }
-    QString cmd;
-    cmd = "gcc -o " + filepath.replace(QRegExp("\\..*$"),"") + ".exe " + filepath + ".cpp";
-    redefine *re = new redefine(cmd);
-    re->move(50,450);
-    re->setParent(this);
-    cmd = filepath + ".exe";
-    re->show();
-    re->write_cmd(cmd);
-    //运行
-    system(cmd.toStdString().data());
->>>>>>> 60a9b4d888298fce59097dba38367653f8eb1675
 }
 //运行
 void MainWindow::on_run()
