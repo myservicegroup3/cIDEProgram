@@ -36,6 +36,10 @@ MainWindow::MainWindow(QWidget *parent) :
     vLayout->addWidget(configEditor);
     /*******************************************************************/
 
+    /****************************新建prosses**************************/
+    re = new redefine();
+    /**********************************************************/
+
     /****************************新建Tabwidget**************************/
     //QAction *pceshi = ptest->addAction("test");
     //connect(pceshi, SIGNAL(triggered()), this, SLOT(addPageSlot()));
@@ -90,7 +94,7 @@ MainWindow::MainWindow(QWidget *parent) :
    //编译完成 ljj lcsb 测试可用
     QAction *comp = pexeute->addAction(u8"编译");
     QAction *run = pexeute->addAction(u8"运行");
-    //connect(configEditor->toPlainText(),SIGNAL(textChanged()),this,SLOT(on_changed()));
+    //connect(configEditor->,SIGNAL(textChanged()),this,SLOT(on_changed()));
     connect(comp,SIGNAL(triggered()),this,SLOT(on_comp()));
     connect(run,SIGNAL(triggered()),this,SLOT(on_run()));
 
@@ -146,7 +150,7 @@ void MainWindow::New()
 }
 void MainWindow::open()
 {
-    filename =  QFileDialog::getOpenFileName(this,"打开");
+    filename =  QFileDialog::getOpenFileName(this,u8"打开");
     if(filename.isEmpty()) return ;//考虑用户选择取消的情景
     FILE *p = fopen(filename.toStdString().data(),"r");
     if(p == NULL) return ;
@@ -165,7 +169,7 @@ void MainWindow::save()
 {
     if(filename.isEmpty())
     {
-        filename = QFileDialog::getSaveFileName(this,"保存文件");
+        filename = QFileDialog::getSaveFileName(this,u8"保存文件");
     }
     if(!filename.isEmpty())
     {
@@ -193,33 +197,27 @@ void MainWindow::on_comp()
         save();
         is_changed = false;
     }
-
-    precomp();//自动以预编译
     QString cmd;
-    const char *s = filename.toStdString().data();
-    cmd.sprintf("gcc -o %s.exe %s.c",s,s);
-    redefine *re = new redefine(cmd);
+    QString filepath = filename;
+    cmd = "gcc -o " + filepath.replace(QRegExp("\\..*$"),"") + ".exe " + filepath + ".cpp";
     //re->move(50,450);
     //re->setParent(this);
     vLayout->addWidget(re);
     vLayout->setStretchFactor(configEditor,2);
     vLayout->setStretchFactor(re,1);
     re->show();
-    system(cmd.toStdString().data());//先编译
-
-    //如何删除那个临时文件呢
-    cmd = filename.replace("/","\\") + ".c";
-    remove(cmd.toStdString().data());
-
-
-    cmd = filename + ".exe";
-    system(cmd.toStdString().data());//再运行
+    re->write_cmd(cmd);
 }
 //运行
 void MainWindow::on_run()
 {
     QString cmd;
-    cmd = filename + ".exe";
+    QString filepath = filename;
+    cmd = filepath.replace(QRegExp("\\..*$"),"") + ".exe";
+    vLayout->addWidget(re);
+    vLayout->setStretchFactor(configEditor,2);
+    vLayout->setStretchFactor(re,1);
+    re->show();
     system(cmd.toStdString().data());
 }
 //视图
@@ -243,7 +241,7 @@ void MainWindow::showFindText1()
     QString str = findLineEdit->text();
     if(!configEditor->blankEditor->find(str,QTextDocument::FindBackward))
     {
-            QMessageBox::warning(this,tr("错误"),tr("找不到%1").arg(str));
+            QMessageBox::warning(this,tr(u8"错误"),tr(u8"找不到%1").arg(str));
     }
 
 }
@@ -253,46 +251,17 @@ void MainWindow::showFindText2()
     QString str = findLineEdit->text();
     if(!configEditor->blankEditor->find(str))
     {
-            QMessageBox::warning(this,tr("错误"),tr("找不到%1").arg(str));
+            QMessageBox::warning(this,tr(u8"错误"),tr(u8"找不到%1").arg(str));
     }
 
 }
-void MainWindow::precomp()//预编译
-{
-    FILE *p = fopen(filename.toStdString().data(),"r");
-    if(p == NULL) return ;
-    QString cmd = filename +".c";
-    FILE *p1 = fopen(cmd.toStdString().data(),"w");
-    if(p1 == NULL) return ;
-    QString str;
-    while(!feof(p))
-    {
-        char buf[1024] = {0};
-        fgets(buf,sizeof(buf),p);
-        str += buf;
-    }
 
-    str.replace("包含","#include");
-    str.replace("主函数","main");
-    str.replace("整数","int");
-    str.replace("开始","{");
-    str.replace("收工","}");
-    str.replace("。",";");
-    str.replace("返回","return");
-    str.replace("打印","printf");
-    str.replace("输入输出","<stdio.h>");
-    str.replace("无声的等待...","getchar()");
-
-    fputs(str.toStdString().data(),p1);
-    fclose(p);
-    fclose(p1);
-}
 void MainWindow::showFindText_1()
 {
     QString str = findLineEdit_1->text();
     if(!configEditor->blankEditor->find(str,QTextDocument::FindBackward))
     {
-            QMessageBox::warning(this,tr("错误"),tr("找不到%1").arg(str));
+            QMessageBox::warning(this,tr(u8"错误"),tr(u8"找不到%1").arg(str));
     }
 }
 
@@ -301,7 +270,7 @@ void MainWindow::showFindText_2()
     QString str = findLineEdit_1->text();
     if(!configEditor->blankEditor->find(str))
     {
-            QMessageBox::warning(this,tr("错误"),tr("找不到%1").arg(str));
+            QMessageBox::warning(this,tr(u8"错误"),tr(u8"找不到%1").arg(str));
     }
 
 }

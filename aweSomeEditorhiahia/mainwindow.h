@@ -5,6 +5,8 @@
 #include "codeeditor.h"
 #include "myhighlighter.h"
 #include "ui_mainwindow.h"
+#include "redefine.h"
+#include <Windows.h>
 #include <QMenuBar>
 #include<QMenu>
 #include <QSettings>
@@ -112,11 +114,10 @@ private:
     QDialog *findDlg;
     QDialog *findDlg1;
     tabCodeEditor *configEditor;
+    redefine *re;
 //
 
     void on_save();
-    //编译
-    void precomp();
     bool is_changed;
 };
 

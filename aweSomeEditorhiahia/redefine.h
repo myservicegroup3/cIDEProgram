@@ -18,7 +18,7 @@ class redefine : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit redefine(QString cmd_str, QWidget *parent = 0);
+    explicit redefine(QWidget *parent = 0);
     void write_cmd(QString cmd_str);
     ~redefine();
 

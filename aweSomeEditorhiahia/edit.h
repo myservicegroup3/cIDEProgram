@@ -1,4 +1,4 @@
-#ifndef EDIT_H
+﻿#ifndef EDIT_H
 #define EDIT_H
 #include "mainwindow.h"
 void MainWindow::edit_init()

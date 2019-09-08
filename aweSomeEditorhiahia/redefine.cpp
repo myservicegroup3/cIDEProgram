@@ -5,7 +5,7 @@
 #include <qDebug>
 #include <QShortcut>
 
-redefine::redefine(QString cmd_str, QWidget *parent) :
+redefine::redefine(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::redefine)
 {
@@ -20,8 +20,6 @@ redefine::redefine(QString cmd_str, QWidget *parent) :
     process = new QProcess(this);
     process->setProcessChannelMode(QProcess::MergedChannels);
     process->start("cmd.exe");
-
-    write_cmd(cmd_str);
 
 
     /* 命令行相关 */
