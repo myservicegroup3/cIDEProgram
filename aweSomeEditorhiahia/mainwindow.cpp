@@ -2,6 +2,7 @@
 #include "setting.h"
 #include "toolbar.h"
 #include "search.h"
+#include "redefine.h"
 
 #include <QMenuBar>
 #include<QMenu>
@@ -143,50 +144,47 @@ void MainWindow :: addPageSlot()
 }
 void MainWindow::New()
 {
-      filepath= QFileDialog::getSaveFileName(this,"save","../","souce(*cpp *h);;Text(*.txt)");
-      if(filepath.isEmpty()==false)
-      {
-          QFile file;//创建文件对象
-          file.setFileName(filepath);
-          bool isok=file.open(QIODevice::WriteOnly);
-          file.close();
-      }
+    if(is_changed == true)
+    {
+        save();
+        is_changed = false;
+    }
+    filename = "";
+    configEditor->blankEditor->setPlainText("");
 }
 void MainWindow::open()
 {
-    filepath= QFileDialog::getOpenFileName(
-                this,
-                "open",
-                "../",
-                "souce(*cpp *h);;Text(*.txt)"
-                );
-     if (filepath.isEmpty()==false)
-     {    QFile file (filepath);
-     bool isok =file.open(QIODevice::ReadOnly);
-     if(isok==true)
+    filename =  QFileDialog::getOpenFileName(this,"打开");
+    if(filename.isEmpty()) return ;//考虑用户选择取消的情景
+    FILE *p = fopen(filename.toStdString().data(),"r");
+    if(p == NULL) return ;
+     QString str;
+     while(!feof(p))
      {
-         //读文件
-     QByteArray array= file.readAll();
-     configEditor->blankEditor->appendPlainText(array);
-         }
+         char buf[1024] = {0};
+         fgets(buf,sizeof(buf),p);
+         str += buf;
      }
+     fclose(p);
+     configEditor->blankEditor->setPlainText(str);
+     is_changed = false;
 }
 void MainWindow::save()
 {
-          filepath= QFileDialog::getSaveFileName(this,"save","../","souce(*cpp *h);;Text(*.txt)");
-          if(filepath.isEmpty()==false)
-          {
-              QFile file;//创建文件对象
-              file.setFileName(filepath);
-              bool isok=file.open(QIODevice::WriteOnly);
-              if(isok==true)
-              {
-              QString str=configEditor-> blankEditor->toPlainText();
-              file.write(str.toUtf8());
-              }
-              file.close();
-          }
+    if(filename.isEmpty())
+    {
+        filename = QFileDialog::getSaveFileName(this,"保存文件");
+    }
+    if(!filename.isEmpty())
+    {
+        FILE *p = fopen(filename.toStdString().data(),"w");
+        if(p == NULL) return ;
+        QString str =configEditor->blankEditor ->toPlainText();
+        fputs(str.toStdString().data(),p);
+        fclose(p);
+    }
 }
+
 
 //编译
 //判断代码是否被修改
@@ -197,29 +195,34 @@ void MainWindow::on_change()
 //编译运行
 void MainWindow::on_comp()
 {
-    if(is_changed == true)
+    if (is_changed == true)//在点击编译按钮，如果文本内容发生变化，就自动保存
     {
-
-
-
-
-
-
-
-
+        save();
+        is_changed = false;
     }
+    precomp();//自动以预编译
     QString cmd;
-    cmd = "gcc -o " + filepath.replace(QRegExp("\\..*$"),"") + ".exe " + filepath + ".cpp";
-    system(cmd.toStdString().data());//编译
-    //运行
-    cmd = filepath + ".exe";
-    system(cmd.toStdString().data());
+    const char *s = filename.toStdString().data();
+    cmd.sprintf("gcc -o %s.exe %s.c",s,s);
+    redefine *re = new redefine(cmd);
+    re->move(50,450);
+    re->setParent(this);
+    re->show();
+    system(cmd.toStdString().data());//先编译
+
+    //如何删除那个临时文件呢
+    cmd = filename.replace("/","\\") + ".c";
+    remove(cmd.toStdString().data());
+
+
+    cmd = filename + ".exe";
+    system(cmd.toStdString().data());//再运行
 }
 //运行
 void MainWindow::on_run()
 {
     QString cmd;
-    cmd = filepath.replace(QRegExp("\\..*$"),"") + ".exe";
+    cmd = filename + ".exe";
     system(cmd.toStdString().data());
 }
 //视图
@@ -257,7 +260,36 @@ void MainWindow::showFindText2()
     }
 
 }
+void MainWindow::precomp()//预编译
+{
+    FILE *p = fopen(filename.toStdString().data(),"r");
+    if(p == NULL) return ;
+    QString cmd = filename +".c";
+    FILE *p1 = fopen(cmd.toStdString().data(),"w");
+    if(p1 == NULL) return ;
+    QString str;
+    while(!feof(p))
+    {
+        char buf[1024] = {0};
+        fgets(buf,sizeof(buf),p);
+        str += buf;
+    }
 
+    str.replace("包含","#include");
+    str.replace("主函数","main");
+    str.replace("整数","int");
+    str.replace("开始","{");
+    str.replace("收工","}");
+    str.replace("。",";");
+    str.replace("返回","return");
+    str.replace("打印","printf");
+    str.replace("输入输出","<stdio.h>");
+    str.replace("无声的等待...","getchar()");
+
+    fputs(str.toStdString().data(),p1);
+    fclose(p);
+    fclose(p1);
+}
 void MainWindow::showFindText_1()
 {
     QString str = findLineEdit_1->text();

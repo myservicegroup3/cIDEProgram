@@ -39,6 +39,7 @@ private:
    //模块化设置
     void buttonPics();//工具栏
     void setsearch();//搜索
+
 private slots:
 
     //theme
