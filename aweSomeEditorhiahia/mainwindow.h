@@ -61,7 +61,10 @@ private slots:
     void hidebar();
     void hidestatus();
     void test();
-    //
+    //复制
+    void copy();
+    void paste();
+    void cut();
 
 
 

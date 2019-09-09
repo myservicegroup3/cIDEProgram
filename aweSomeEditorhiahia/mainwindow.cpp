@@ -84,7 +84,18 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(psave,SIGNAL(triggered()),this,SLOT(save()));
     pfile->addSeparator();
    /**************************************************************/
+    //复制
+    QAction *copy_edit =pfile->addAction(u8"复制");
+    copy_edit ->setShortcut(tr("ctrl+c"));
+     connect(copy_edit,SIGNAL(triggered()),this,SLOT(copy()));
 
+     QAction *paste_edit = pfile->addAction(u8"粘贴");
+     paste_edit ->setShortcut(tr("ctrl+v"));
+     connect(paste_edit,SIGNAL(triggered()),this,SLOT(paste()));
+
+     QAction *cut_edit = pfile->addAction(u8"剪切");
+     cut_edit ->setShortcut(tr("ctrl+x"));
+     connect(cut_edit,SIGNAL(triggered()),this,SLOT(cut()));
     /***************************搜索********************************/
     setsearch();
     /**************************************************************/
@@ -180,7 +191,18 @@ void MainWindow::save()
         fclose(p);
     }
 }
-
+void MainWindow::copy()
+{
+    configEditor->blankEditor->copy();
+}
+void MainWindow::paste()
+{
+    configEditor->blankEditor->paste();
+}
+void MainWindow::cut()
+{
+    configEditor->blankEditor->cut();
+}
 
 //编译
 //判断代码是否被修改
