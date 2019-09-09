@@ -8,6 +8,7 @@
 #include <QSyntaxHighlighter>
 #include <QTabWidget>
 #include <QTabBar>
+#include "myhighlighter.h"
 class LineNumberArea;
 
 
@@ -66,6 +67,7 @@ public:
          blankEditor=new CodeEditor();
          blankEditor->colorCount();
          this->addTab(blankEditor,"test");
+         MyHighLighter *highlighter = new MyHighLighter(this->blankEditor->document());
 
 
     }

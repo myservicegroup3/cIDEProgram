@@ -47,7 +47,7 @@ void MainWindow::setting_init()
 }
 //主题和字体
 QString backgroundColor ="#ffffff" ;
-QString foregroundColor  = "#ffffff";
+QString foregroundColor  = "gray";
 QString fontsize = "20pt";
 QString fontfamily = "Consolas";
 
@@ -170,6 +170,7 @@ void MainWindow::setTabWidgetStyle(){
                 "color:" + foregroundColor  +";"
                 "font-size:"+fontsize+";"
                 "font-family:"+fontfamily+";"
+                "font-color:gray;"
 
 
              "}"

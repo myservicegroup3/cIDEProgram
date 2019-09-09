@@ -13,6 +13,7 @@ CodeEditor::CodeEditor(QTabWidget *parent) : QPlainTextEdit(parent)
     setLineNumberAreaWidth(0);
     //this->setStyleSheet();
     HighLightCursorLine();
+
 }
 int CodeEditor::lineNumberAreaWidth()
 {

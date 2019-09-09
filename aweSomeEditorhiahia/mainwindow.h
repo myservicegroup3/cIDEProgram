@@ -6,6 +6,8 @@
 #include "myhighlighter.h"
 #include "ui_mainwindow.h"
 #include "redefine.h"
+
+
 #include <Windows.h>
 #include <QMenuBar>
 #include<QMenu>
@@ -34,14 +36,18 @@ public:
    QMenu *pexeute=mbar->addMenu(u8"运行");
    QMenu *psetting=mbar->addMenu(u8"设置");
    QMenu *pabout =mbar->addMenu(u8"关于");
-   QMenu *ptest = mbar->addMenu(u8"测试");
+  // QMenu *ptest = mbar->addMenu(u8"测试");
 
 
 private:
    //模块化设置
     void buttonPics();//工具栏
     void setsearch();//搜索
-    void edit_init();
+    void edit_init();//视图
+    void file_init();
+    void tab_init();
+    void about_init();
+    void debug_init();
 
 private slots:
 

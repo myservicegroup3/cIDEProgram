@@ -59,5 +59,59 @@ void MainWindow::setsearch()
 
 }
 
+void MainWindow::showFindText1()
+{
+    QString str = findLineEdit->text();
+    if(!configEditor->blankEditor->find(str,QTextDocument::FindBackward))
+    {
+            QMessageBox::warning(this,tr(u8"错误"),tr(u8"找不到%1").arg(str));
+    }
+
+}
+
+void MainWindow::showFindText2()
+{
+    QString str = findLineEdit->text();
+    if(!configEditor->blankEditor->find(str))
+    {
+            QMessageBox::warning(this,tr(u8"错误"),tr(u8"找不到%1").arg(str));
+    }
+
+}
+
+void MainWindow::showFindText_1()
+{
+    QString str = findLineEdit_1->text();
+    if(!configEditor->blankEditor->find(str,QTextDocument::FindBackward))
+    {
+            QMessageBox::warning(this,tr(u8"错误"),tr(u8"找不到%1").arg(str));
+    }
+}
+
+void MainWindow::showFindText_2()
+{
+    QString str = findLineEdit_1->text();
+    if(!configEditor->blankEditor->find(str))
+    {
+            QMessageBox::warning(this,tr(u8"错误"),tr(u8"找不到%1").arg(str));
+    }
+
+}
+
+void MainWindow::showFindText3()
+{
+    QString str = findLineEdit_1->text();
+    QString str1 = findLineEdit_2->text();
+    if(configEditor->blankEditor->textCursor().selectedText()==str)
+    {
+            configEditor->blankEditor->textCursor().insertText(str1);
+    }
+}
+void MainWindow::removetab(int index)
+{
+   configEditor->removeTab(index);
+};
+
+
 
 #endif // SEARCH_H
