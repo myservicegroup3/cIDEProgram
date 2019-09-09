@@ -10,7 +10,7 @@
 
 #include <Windows.h>
 #include <QMenuBar>
-#include<QMenu>
+#include <QMenu>
 #include <QSettings>
 #include <QPushButton>
 #include <QRegExp>
@@ -34,6 +34,7 @@ public:
    QMenu *pfind =mbar->addMenu(u8"搜索");
    QMenu *pview = mbar->addMenu(u8"视图");
    QMenu *pexeute=mbar->addMenu(u8"运行");
+   QMenu *pcomment = mbar->addMenu(u8"注释");
    QMenu *psetting=mbar->addMenu(u8"设置");
    QMenu *pabout =mbar->addMenu(u8"关于");
   // QMenu *ptest = mbar->addMenu(u8"测试");
@@ -65,8 +66,6 @@ private slots:
     void showFindText3();
 
     void hidebar();
-    void hidestatus();
-    void test();
     //复制
     void copy();
     void paste();
@@ -108,6 +107,11 @@ private slots:
     void addPageSlot();
     //void removePageSlot();
     //void dragPageSlot();
+
+    //隐藏注释
+    void commenthide_init();
+    void commenthide();
+    void commentappear();
 
 
 

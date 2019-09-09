@@ -9,6 +9,7 @@
 #include "others.h"
 #include "debug.h"
 #include "tab.h"
+#include "commenthide.h"
 #include <QMenuBar>
 #include<QMenu>
 #include<QAction>
@@ -38,6 +39,7 @@ MainWindow::MainWindow(QWidget *parent) :
        edit_init();//视图
        setsearch();//搜索
        debug_init();//编译调试
+       commenthide_init();//注释
        about_init(); //关于
        buttonPics();//工具栏
        re = new redefine();//prosses
@@ -52,15 +54,5 @@ MainWindow::~MainWindow()
 //视图
 
 
-void MainWindow::hidestatus()
-{
-
-}
-
-
-void MainWindow::test()
-{
-
-}
 
 //搜索替换部分

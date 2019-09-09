@@ -1,4 +1,4 @@
-#ifndef CODEEDITOR_H
+﻿#ifndef CODEEDITOR_H
 #define CODEEDITOR_H
 #include <QPlainTextEdit>
 #include <QObject>
@@ -68,7 +68,6 @@ public:
          blankEditor->colorCount();
          this->addTab(blankEditor,"test");
          MyHighLighter *highlighter = new MyHighLighter(this->blankEditor->document());
-
 
     }
     CodeEditor *blankEditor;

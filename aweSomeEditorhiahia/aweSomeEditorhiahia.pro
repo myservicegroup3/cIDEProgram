@@ -30,7 +30,8 @@ HEADERS  += mainwindow.h \
     debug.h \
     file.h \
     others.h \
-    tab.h
+    tab.h \
+    commenthide.h
 CONFIG +=c++11
 FORMS    += mainwindow.ui \
     redefine.ui
