@@ -93,7 +93,7 @@ void redefine::error_process()
     QString err = process->errorString();
 
     /* 显示 */
-    ui->textEdit->append(QString("error coed:%1").arg(err_code));
+    ui->textEdit->append(QString("error code:%1").arg(err_code));
     ui->textEdit->append(err);
 
     /* 信息输出 */

@@ -7,7 +7,7 @@
 #include "file.h"
 #include "debug.h"
 #include "others.h"
-#include "debug.h"
+#include "run.h"
 #include "tab.h"
 #include "commenthide.h"
 #include <QStandardItemModel>
@@ -44,6 +44,7 @@ MainWindow::MainWindow(QWidget *parent) :
        commenthide_init();//注释
        about_init(); //关于
        buttonPics();//工具栏
+        debugbar_init();
        re = new redefine();//prosses
 }
 

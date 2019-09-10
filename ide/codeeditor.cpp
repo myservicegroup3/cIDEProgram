@@ -116,7 +116,7 @@ void CodeEditor::HighLightCursorLine()
 {
     QList<QTextEdit::ExtraSelection> extraSelections;
     QTextEdit::ExtraSelection selection;//定义一个光标类
-    QColor lineColor = QColor(Qt::green).lighter(185);
+    QColor lineColor = QColor(Qt::yellow).lighter(180);
 
     //设置高亮颜色和宽度
     selection.format.setBackground(lineColor);

@@ -30,25 +30,53 @@ public:
    //添加菜单项
    QMenu *pfile=mbar->addMenu(u8"文件");
    QMenu *pfind =mbar->addMenu(u8"搜索");
-   QMenu *pview = mbar->addMenu(u8"视图");
-   QMenu *pexeute=mbar->addMenu(u8"运行");
+   QMenu *pview = mbar->addMenu(u8"编辑");
+   QMenu *pexeute=mbar->addMenu(u8"调试");
    QMenu *pcomment = mbar->addMenu(u8"注释");
    QMenu *psetting=mbar->addMenu(u8"设置");
    QMenu *pabout =mbar->addMenu(u8"关于");
-   //QMenu *ptest = mbar->addMenu(u8"测试");
+   QToolBar * toolBar=addToolBar("toolBar");
+      QToolBar * debugBar=addToolBar("debugBar");
+      //调试
+      QToolButton *b1 ;
+       QToolButton *b2 ;
+       QToolButton *b3;
+          QToolButton *b4 ;
+           QToolButton *b5 ;
+             QToolButton *b8 ;
+      QToolButton *b6 ;
+        QToolButton *b7 ;
 
 
 private:
    //模块化设置
     void buttonPics();//工具栏
+     void debugbar_init();
     void setsearch();//搜索
     void edit_init();//视图
     void file_init();
     void tab_init();
     void about_init();
     void debug_init();
+     void debugmenu_init();
+
 
 private slots:
+     //调试用
+       void addpointtext();
+       void deletepointtext();
+       void findpointtext();
+
+       void tpf11();
+       void tpf12();
+       void debugquit();
+       void addpoint();
+       void deletepoint();
+       void jump();
+       void printpoint();
+       void debug_continue();
+
+
 
     //theme
     //void setMainWindowStyle(QString backgroundColor, QString lineColor);
@@ -64,6 +92,7 @@ private slots:
     void showFindText3();
 
     void hidebar();
+    void hidetoolbar();
    // void test();
     //复制
     void copy();
@@ -79,6 +108,7 @@ private slots:
     void on_comp();
     void on_run();
     void on_change();
+     void on_debug();
 
     //设置
     //主题
@@ -121,9 +151,20 @@ private:
     QString  filename;
     QString  filepath;
     QSettings settings;
+
+    QLineEdit *addpointLineEdit;
+    QLineEdit *deletepointLineEdit;
+    QLineEdit *findpointLineEdit;
+    QDialog *addDlg;
+    QDialog *deleteDlg;
+    QDialog *findpointDlg;
+
+
     QLineEdit *findLineEdit;
+
     QLineEdit *findLineEdit_1;
     QLineEdit *findLineEdit_2;
+
     QDialog *findDlg;
     QDialog *findDlg1;
     tabCodeEditor *configEditor;

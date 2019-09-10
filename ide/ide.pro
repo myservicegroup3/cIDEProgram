@@ -31,7 +31,8 @@ HEADERS  += mainwindow.h \
     file.h \
     others.h \
     tab.h \
-    commenthide.h
+    commenthide.h \
+    run.h
 CONFIG +=c++11
 FORMS    += mainwindow.ui \
     redefine.ui

@@ -1,11 +1,14 @@
 ﻿#ifndef EDIT_H
 #define EDIT_H
 #include "mainwindow.h"
-
+#include <QToolBar>
+bool judge=false;
 void MainWindow::edit_init()
 {
     QAction *phide = pview->addAction(u8"隐藏菜单栏");
     phide ->setShortcut(tr("ctrl+h"));
+    QAction * phidebar = pview->addAction(u8"隐藏工具栏");
+        connect(phidebar,SIGNAL(triggered()),this,SLOT(hidetoolbar()));
     connect(phide,SIGNAL(triggered()),this,SLOT(hidebar()));
     QAction *copy_edit =pview->addAction(u8"复制");
     copy_edit ->setShortcut(tr("ctrl+c"));
@@ -26,6 +29,19 @@ void MainWindow::hidebar()
         mbar->setMaximumHeight(0);
     } else {
         mbar->setMaximumHeight(100);
+    }
+}
+void MainWindow::hidetoolbar()
+{
+    if(judge==false)
+    {
+        toolBar->setVisible(judge);
+        judge = true;
+    }
+    else
+    {
+        toolBar->setVisible(judge);
+        judge = false;
     }
 }
 

@@ -1,7 +1,7 @@
 #ifndef FILE_H
 #define FILE_H
 #include "mainwindow.h"
-#include "debug.h"
+#include "run.h"
 #include <QTabWidget>
 #include<QTabBar>
 

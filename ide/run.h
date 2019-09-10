@@ -1,19 +1,23 @@
-#ifndef DEBUG_H
-#define DEBUG_H
+#ifndef RUN_H
+#define RUN_H
 
 #include "mainwindow.h"
+#include <QDebug>
+#include <QToolBar>
 
 void MainWindow::debug_init()
 {
-    /**************************编译运行*********************************/
-    //编译完成 ljj lcsb 测试可用
+   //编译运行
+
      QAction *comp = pexeute->addAction(u8"编译");
      QAction *run = pexeute->addAction(u8"运行");
+     QAction *debug = pexeute->addAction(u8"调试");
      //connect(configEditor->,SIGNAL(textChanged()),this,SLOT(on_changed()));
      connect(comp,SIGNAL(triggered()),this,SLOT(on_comp()));
      connect(run,SIGNAL(triggered()),this,SLOT(on_run()));
+          connect(debug,SIGNAL(triggered()),this,SLOT(on_debug()));
 
-     /**************************************************************/
+
 }
 
 //编译
@@ -54,4 +58,4 @@ void MainWindow::on_run()
     re->show();
     system(cmd.toStdString().data());
 }
-#endif // DEBUG_H
+#endif // RUN_H

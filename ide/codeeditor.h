@@ -76,7 +76,7 @@ public:
 
          blankEditor=new CodeEditor();
          blankEditor->colorCount();
-         this->addTab(blankEditor,"test");
+         this->addTab(blankEditor,"main");
 
         MyHighLighter *highlighter = new MyHighLighter(this->blankEditor->document());
     }
