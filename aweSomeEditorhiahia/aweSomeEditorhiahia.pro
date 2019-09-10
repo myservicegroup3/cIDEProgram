@@ -37,4 +37,5 @@ FORMS    += mainwindow.ui \
     redefine.ui
 
 RESOURCES += \
-    img.qrc
+    img.qrc \
+    keyword.qrc

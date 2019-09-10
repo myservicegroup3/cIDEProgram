@@ -1,4 +1,4 @@
-﻿#ifndef TAB_H
+#ifndef TAB_H
 #define TAB_H
 #include"mainwindow.h"
 void MainWindow::tab_init()
@@ -17,9 +17,9 @@ void MainWindow :: addPageSlot()
     configEditor->insertTab(configEditor->currentIndex()+1,temp,QIcon("Icons/2.png"),QString::number(count));
    //configEditor->insertTab(configEditor->currentIndex()+1,temp,QIcon("Icons/2.png"),QString::number(count));
             //显示新的页面
-    MyHighLighter *highlighter = new MyHighLighter(temp->document());
+     MyHighLighter *highlighter = new MyHighLighter(temp->document());
     configEditor->setCurrentIndex(configEditor->indexOf(temp));
-    configEditor->blankEditor = temp;
+       configEditor->blankEditor = temp;
     count++;
 }
 #endif // TAB_H

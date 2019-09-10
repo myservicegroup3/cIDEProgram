@@ -3,13 +3,15 @@
 #include <QSyntaxHighlighter>
 #include <QTextCharFormat>
 #include <QTextDocument>
+#include <QtWidgets>
 class MyHighLighter : public QSyntaxHighlighter
 {
     Q_OBJECT
 
 public:
-    MyHighLighter(QTextDocument *parent = 0);
-
+    MyHighLighter(QTextDocument *document = 0);
+    void readSyntaxHighter(const QString &fileName);
+    QMap<QString, QColor> syntaxHightMap; //保存语法高亮信息
 protected:
     void highlightBlock(const QString &text) Q_DECL_OVERRIDE;
 
@@ -32,5 +34,6 @@ private:
     QTextCharFormat multiLineCommentFormat;
     QTextCharFormat quotationFormat;
     QTextCharFormat functionFormat;
+    QRegularExpression matchReExpression;
 };
 #endif // MYHIGHLIGHTER_H

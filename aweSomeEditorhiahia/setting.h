@@ -1,4 +1,4 @@
-﻿#ifndef SETTING_H
+#ifndef SETTING_H
 #define SETTING_H
 
 #include <include.h>
@@ -170,8 +170,7 @@ void MainWindow::setTabWidgetStyle(){
                 "color:" + foregroundColor  +";"
                 "font-size:"+fontsize+";"
                 "font-family:"+fontfamily+";"
-                "font-color:gray;"
-
+                 "font-color:gray;"
 
              "}"
 

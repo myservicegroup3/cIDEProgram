@@ -1,4 +1,4 @@
-﻿#ifndef OTHERS_H
+#ifndef OTHERS_H
 #define OTHERS_H
 
 #include "mainwindow.h"

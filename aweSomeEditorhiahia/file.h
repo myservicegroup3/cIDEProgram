@@ -1,4 +1,4 @@
-﻿#ifndef FILE_H
+#ifndef FILE_H
 #define FILE_H
 #include "mainwindow.h"
 #include "debug.h"

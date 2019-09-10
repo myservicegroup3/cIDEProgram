@@ -6,11 +6,9 @@
 #include "myhighlighter.h"
 #include "ui_mainwindow.h"
 #include "redefine.h"
-
-
 #include <Windows.h>
 #include <QMenuBar>
-#include <QMenu>
+#include<QMenu>
 #include <QSettings>
 #include <QPushButton>
 #include <QRegExp>
@@ -37,7 +35,7 @@ public:
    QMenu *pcomment = mbar->addMenu(u8"注释");
    QMenu *psetting=mbar->addMenu(u8"设置");
    QMenu *pabout =mbar->addMenu(u8"关于");
-  // QMenu *ptest = mbar->addMenu(u8"测试");
+   //QMenu *ptest = mbar->addMenu(u8"测试");
 
 
 private:
@@ -66,6 +64,7 @@ private slots:
     void showFindText3();
 
     void hidebar();
+   // void test();
     //复制
     void copy();
     void paste();
@@ -108,10 +107,11 @@ private slots:
     //void removePageSlot();
     //void dragPageSlot();
 
-    //隐藏注释
+        //隐藏注释
     void commenthide_init();
     void commenthide();
     void commentappear();
+
 
 
 

@@ -1,4 +1,4 @@
-﻿#ifndef SEARCH_H
+#ifndef SEARCH_H
 #define SEARCH_H
 #include "mainwindow.h"
 #include "include.h"
@@ -58,7 +58,6 @@ void MainWindow::setsearch()
     });
 
 }
-
 void MainWindow::showFindText1()
 {
     QString str = findLineEdit->text();
@@ -111,7 +110,6 @@ void MainWindow::removetab(int index)
 {
    configEditor->removeTab(index);
 };
-
 
 
 #endif // SEARCH_H

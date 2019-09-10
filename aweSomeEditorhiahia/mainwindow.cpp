@@ -10,6 +10,7 @@
 #include "debug.h"
 #include "tab.h"
 #include "commenthide.h"
+#include <QStandardItemModel>
 #include <QMenuBar>
 #include<QMenu>
 #include<QAction>
@@ -27,13 +28,14 @@
 #include<QPlainTextEdit>
 #include <QTabWidget>
 #include<QTabBar>
-
+#include<QCompleter>
+#include <QLineEdit>
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent)
 {
-       this->setupUi(this);
-       this->setWindowIcon(QIcon(":/img/img/2.png"));
-       tab_init();//tab
+    this->setupUi(this);
+    this->setWindowIcon(QIcon(":/img/img/2.png"));
+    tab_init();//tab
        file_init();//文件
        setting_init();//设置
        edit_init();//视图
@@ -49,10 +51,3 @@ MainWindow::MainWindow(QWidget *parent) :
 MainWindow::~MainWindow()
 {
 }
-
-
-//视图
-
-
-
-//搜索替换部分

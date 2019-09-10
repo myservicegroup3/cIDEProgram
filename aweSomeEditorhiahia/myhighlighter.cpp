@@ -1,7 +1,6 @@
 #include "myhighlighter.h"
 
-MyHighLighter::MyHighLighter(QTextDocument *parent)
-    : QSyntaxHighlighter(parent)
+MyHighLighter::MyHighLighter(QTextDocument *document):QSyntaxHighlighter(document)
 {
     HighlightingRule rule;
 
@@ -49,6 +48,49 @@ MyHighLighter::MyHighLighter(QTextDocument *parent)
 
     commentStartExpression = QRegExp("/\\*");
     commentEndExpression = QRegExp("\\*/");
+}
+
+void MyHighLighter::readSyntaxHighter(const QString &fileName)
+{
+    QFile file(fileName);
+    if (false == file.open(QIODevice::ReadOnly))
+    {
+        qDebug() << "Open file " << fileName << "error" << __FUNCTION__;
+    }
+
+    QTextStream readFileStream(&file);
+    QString keyWord;
+    QString readLineStr;
+    QStringList lineWordList;
+    QString matchReString;
+    QRegularExpression re("[ ]+");
+    int r, g, b;
+
+    while(!readFileStream.atEnd())
+    {
+        readLineStr = readFileStream.readLine();
+        if (readLineStr.startsWith("$$")) //comment line
+        {
+            continue;
+        }
+        readLineStr.replace("\t", " ");
+        lineWordList = readLineStr.split(re);
+        if (lineWordList.size() != 4)
+        {
+            continue;
+        }
+        keyWord = lineWordList.at(0);
+        matchReString.append(keyWord);
+        matchReString.append("|");
+
+        r = lineWordList.at(1).toInt();
+        g = lineWordList.at(2).toInt();
+        b = lineWordList.at(3).toInt();
+        syntaxHightMap.insert(keyWord, QColor(r, g, b));
+    }
+    matchReString.trimmed();
+    matchReExpression.setPattern(matchReString);
+    qDebug() << "matchReString:" << matchReString;
 }
 
 void MyHighLighter::highlightBlock(const QString &text)

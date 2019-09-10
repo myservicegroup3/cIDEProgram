@@ -1,10 +1,9 @@
 ﻿#include "redefine.h"
 #include "ui_redefine.h"
 #include "mainwindow.h"
-
 #include <qDebug>
 #include <QShortcut>
-
+#include <qtoolbutton.h>
 redefine::redefine(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::redefine)
@@ -14,7 +13,7 @@ redefine::redefine(QWidget *parent) :
 
     ui->setupUi(this);
     ui->textEdit->setLineWrapMode(QTextEdit::NoWrap);
-
+    ui->closeBtn->resize(200,200);
 
     /* 新建process */
     process = new QProcess(this);
