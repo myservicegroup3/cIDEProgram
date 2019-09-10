@@ -34,6 +34,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent)
 {
     this->setupUi(this);
+    this->setWindowTitle("Vcode");
     this->setWindowIcon(QIcon(":/img/img/2.png"));
     tab_init();//tab
        file_init();//文件
