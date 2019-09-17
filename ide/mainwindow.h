@@ -8,11 +8,11 @@
 #include "redefine.h"
 #include <Windows.h>
 #include <QMenuBar>
-#include<QMenu>
+#include <QMenu>
 #include <QSettings>
 #include <QPushButton>
 #include <QRegExp>
-class MainWindow : public QMainWindow,Ui::MainWindow
+class MainWindow : public QMainWindow, Ui::MainWindow
 {
     Q_OBJECT
 
@@ -20,69 +20,52 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
-public:
-    //theme
-    QString theme;
+/*******************菜单栏类，将其实现于mainwindow中*****************/
+private:
     //添加菜单栏
-   QMenuBar *mbar=menuBar();
+    QMenuBar *mbar = menuBar();
+    QMenu *pfile = mbar->addMenu(u8"文件");
+    QMenu *pfind = mbar->addMenu(u8"搜索");
+    QMenu *pview = mbar->addMenu(u8"编辑");
+    QMenu *pexeute = mbar->addMenu(u8"调试");
+    QMenu *pcomment = mbar->addMenu(u8"注释");
+    QMenu *psetting = mbar->addMenu(u8"设置");
+    QMenu *pabout = mbar->addMenu(u8"关于");
 
+    //菜单栏项变量
+    int count = 0;
+    QString filename;
+    QString filepath;
+    QSettings settings;
+    QString theme;
+    QLineEdit *findLineEdit;
+    QLineEdit *findLineEdit_1;
+    QLineEdit *findLineEdit_2;
+    QDialog *findDlg;
+    QDialog *findDlg1;
+    tabCodeEditor *configEditor;
+    redefine *re;
+    bool is_changed;
 
-   //添加菜单项
-   QMenu *pfile=mbar->addMenu(u8"文件");
-   QMenu *pfind =mbar->addMenu(u8"搜索");
-   QMenu *pview = mbar->addMenu(u8"编辑");
-   QMenu *pexeute=mbar->addMenu(u8"调试");
-   QMenu *pcomment = mbar->addMenu(u8"注释");
-   QMenu *psetting=mbar->addMenu(u8"设置");
-   QMenu *pabout =mbar->addMenu(u8"关于");
-   QToolBar * toolBar=addToolBar("toolBar");
-      QToolBar * debugBar=addToolBar("debugBar");
-      //调试
-      QToolButton *b1 ;
-       QToolButton *b2 ;
-       QToolButton *b3;
-          QToolButton *b4 ;
-           QToolButton *b5 ;
-             QToolButton *b8 ;
-      QToolButton *b6 ;
-        QToolButton *b7 ;
 
 
 private:
-   //模块化设置
-    void buttonPics();//工具栏
-     void debugbar_init();
-    void setsearch();//搜索
-    void edit_init();//视图
+    //菜单栏函数
+    void buttonPics(); //工具栏
+    void debugbar_init();
+    void setsearch(); //搜索
+    void edit_init(); //视图
     void file_init();
     void tab_init();
     void about_init();
     void debug_init();
-     void debugmenu_init();
-
-
+    void debugmenu_init();
+    void on_save();
 private slots:
-     //调试用
-       void addpointtext();
-       void deletepointtext();
-       void findpointtext();
-
-       void tpf11();
-       void tpf12();
-       void debugquit();
-       void addpoint();
-       void deletepoint();
-       void jump();
-       void printpoint();
-       void debug_continue();
-
-
-
-    //theme
-    //void setMainWindowStyle(QString backgroundColor, QString lineColor);
+    //菜单栏槽函数
     void setTabWidgetStyle();
-    //QString foregroundColor, QString backgroundColor
-
+    void addPageSlot();
+    void removetab(int index);
 
     //搜索
     void showFindText1();
@@ -91,15 +74,15 @@ private slots:
     void showFindText_2();
     void showFindText3();
 
+    //编辑用
     void hidebar();
     void hidetoolbar();
-   // void test();
+
+
     //复制
     void copy();
     void paste();
     void cut();
-
-
 
     void New();
     void open();
@@ -108,7 +91,7 @@ private slots:
     void on_comp();
     void on_run();
     void on_change();
-     void on_debug();
+    void on_debug();
 
     //设置
     //主题
@@ -128,51 +111,58 @@ private slots:
     void setfontheme2();
     void setfontheme3();
     void setfontheme4();
-    //设置结束
 
-    //tab测试
-    void removetab(int index);
-
-    void addPageSlot();
-    //void removePageSlot();
-    //void dragPageSlot();
-
-        //隐藏注释
+    //隐藏注释
     void commenthide_init();
     void commenthide();
     void commentappear();
 
 
+/*****************************菜单栏类结束******************************/
 
+
+/*******************工具栏类，将其实现于mainwindow类中*********************/
 
 
 private:
-    int count = 0;
-    QString  filename;
-    QString  filepath;
-    QSettings settings;
+    QToolBar *toolBar = addToolBar("toolBar");
+    QToolBar *debugBar = addToolBar("debugBar");
 
+private:
+    //调试工具栏
+    QToolButton *b1;
+    QToolButton *b2;
+    QToolButton *b3;
+    QToolButton *b4;
+    QToolButton *b5;
+    QToolButton *b8;
+    QToolButton *b6;
+    QToolButton *b7;
+
+    //调试所用变量
     QLineEdit *addpointLineEdit;
     QLineEdit *deletepointLineEdit;
     QLineEdit *findpointLineEdit;
     QDialog *addDlg;
     QDialog *deleteDlg;
     QDialog *findpointDlg;
+private slots:
+    //调试用
+    void addpointtext();
+    void deletepointtext();
+    void findpointtext();
+    void tpf11();
+    void tpf12();
+    void debugquit();
+    void addpoint();
+    void deletepoint();
+    void jump();
+    void printpoint();
+    void debug_continue();
+ /*****************************工具栏类结束******************************/
 
 
-    QLineEdit *findLineEdit;
 
-    QLineEdit *findLineEdit_1;
-    QLineEdit *findLineEdit_2;
-
-    QDialog *findDlg;
-    QDialog *findDlg1;
-    tabCodeEditor *configEditor;
-    redefine *re;
-//
-
-    void on_save();
-    bool is_changed;
 };
 
 #endif // MAINWINDOW_H

@@ -16,7 +16,7 @@ void MainWindow::on_debug()
     }
     QString cmd;
     QString filepath = filename;
-    cmd = "gcc -g " + filepath.replace(QRegExp("\\..*$"), "") + ".cpp" + " -o " + filepath.replace(QRegExp("\\..*$"), "") + ".exe";
+    cmd = "gcc -g " + filepath.replace(QRegExp("\\..*$"), "") + ".c" + " -o " + filepath.replace(QRegExp("\\..*$"), "") + ".exe";
     //filepath.replace(QRegExp("\\..*$"),"") + ".exe " + filepath + ".cpp";
     //qDebug() << "Success:write_cmd：" << cmd << endl;
     vLayout->addWidget(re);

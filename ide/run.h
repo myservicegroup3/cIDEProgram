@@ -37,7 +37,7 @@ void MainWindow::on_comp()
     }
     QString cmd;
     QString filepath = filename;
-    cmd = "gcc -o " + filepath.replace(QRegExp("\\..*$"),"") + ".exe " + filepath + ".cpp";
+    cmd = "gcc -o " + filepath.replace(QRegExp("\\..*$"),"") + ".exe " + filepath + ".c";
     //re->move(50,450);
     //re->setParent(this);
     vLayout->addWidget(re);
